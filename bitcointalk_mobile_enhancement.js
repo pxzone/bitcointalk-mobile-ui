@@ -70,7 +70,7 @@
         body {
             transform: scale(0.8);
             transform-origin: top left;
-            width: 100vw;
+            width: 125vw;
             overflow-x: hidden;
             background: #e9eef2;
         }
@@ -85,6 +85,10 @@
             font-size: 2.2rem;
             font-weight: 600;
             color: #fff;
+        }
+        .navbar ul h3 {
+        	padding: 5px 10px;
+  				font-size: 1.2rem;
         }
         .btt-navbar .dropdown-menu {
             width: 270px;
@@ -159,15 +163,15 @@
        
 
     // Force to smaller screen width
-    const emulateMobile = () => {
-        const width = 420; // Target mobile width (e.g., iPhone size)
-        const height = window.innerHeight;
-        document.documentElement.style.width = `${width}px`;
-        document.documentElement.style.overflowX = "hidden";
-        document.body.style.width = `${width}px`;
-        document.body.style.overflowX = "hidden";
-    };
-    emulateMobile(); 
+//     const emulateMobile = () => {
+//         const width = 420; // Target mobile width (e.g., iPhone size)
+//         const height = window.innerHeight;
+//         document.documentElement.style.width = `${width}px`;
+//         document.documentElement.style.overflowX = "hidden";
+//         document.body.style.width = `${width}px`;
+//         document.body.style.overflowX = "hidden";
+//     };
+//     emulateMobile(); 
 
     const adjustLayout = () => {
         if (window.innerWidth < 768) {
