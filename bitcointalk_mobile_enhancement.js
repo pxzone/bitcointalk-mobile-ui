@@ -15,13 +15,13 @@
     const avatarImage = document.querySelector('.avatar');
     const avatarSrc = avatarImage.getAttribute('src');
     const uidMatch = avatarSrc.match(/(\d+)/); 
-    const helloElement  = document.getElementById('hellomember');
+    const helloElement = document.getElementById('hellomember');
 
     if (uidMatch) {
         var uid = uidMatch[1]; // The first match group will contain the number
     } 
     if (helloElement) {
-        let usernameTextContent  = helloElement.innerHTML;
+        let usernameTextContent = helloElement.innerHTML;
         usernameTextContent = usernameTextContent.replace(/^Hello\s*/, '');
         const usernameText = usernameTextContent.match(/<b>(.*?)<\/b>/);
         var username = usernameText[1];
@@ -31,7 +31,7 @@
     if (!document.querySelector('meta[name="viewport"]')) {
         const viewportMeta = document.createElement('meta');
         viewportMeta.name = "viewport";
-        viewportMeta.content = "width=device-width, initial-scale=1";
+        viewportMeta.content = "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no";
         document.head.appendChild(viewportMeta);
     }
 
@@ -73,6 +73,8 @@
             width: 125vw;
             overflow-x: hidden;
             background: #e9eef2;
+            font-size: 1.3rem;
+            padding: 0px !important;
         }
         #smfheader {
             background: url(/Themes/custom1/images/catbg.jpg) #88A6C0 repeat-x;
@@ -87,11 +89,18 @@
             color: #fff;
         }
         .navbar ul h3 {
+        	padding: 5px 15px;
+  			font-size: 1.5rem;
+        }
+       .navbar .username {
         	padding: 5px 10px;
-  				font-size: 1.2rem;
+        }
+        .btt-navbar {
+            font-size: 1rem;
         }
         .btt-navbar .dropdown-menu {
-            width: 270px;
+            width: 290px;
+            font-size: 1.3rem;
         }
         .news-area{
             padding: 10px;
@@ -101,6 +110,7 @@
             padding: 0px 10px 0px 10px;
             margin: 0;
             list-style-type: none;
+            font-size: 1.3rem;
         }
         .header-recent-posts li {
             display: inline-block; /* Make list items inline */
@@ -108,6 +118,14 @@
         }
         .btt-title-area {
             padding: 0px 10px 0px 10px;
+            font-size: 1.2rem !important;
+        }
+        .btt-title-area a{
+            font-size: 1.2rem !important;
+            font-weight: 500;
+        }
+        .smalltext{
+            font-size: 1rem;
         }
         .hr {
             border-bottom: 1px solid #E0E1E8;
@@ -122,9 +140,10 @@
             -webkit-box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.05);
             -moz-box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.05);
         }
-            
+        #bodyarea {
+        	padding: 0px 10px !important;
+        }
         #bodyarea .tborder {
-           
             border: none;
             background-color: #FFFFFF;
             border-radius: 10px;
@@ -133,25 +152,36 @@
         	background: #A1BFD9 repeat-x;
         	border-top-right-radius: 10px;
         	border-top-left-radius: 10px;
-					border-bottom: none !important;
+			border-bottom: none !important;
         }
         .bordercolor {
             border-bottom-right-radius: 10px;
             border-bottom-left-radius: 10px;
         }
         .board-last-post {
-        	font-size: .7rem;
-          padding: 10px;
+        	font-size: .9rem !important;
+            padding: 10px;
         }
         .windowbg, .windowbg2 {
-          background-color: #fbfbfb;
+            background-color: #fbfbfb;
+            font-size: 1rem;
+        }
+        .windowbg img{
+            width: 50px;
         }
         .windowbg3 {
           background-color: #f2f2f2;
         }
+        .windowbg2 a{
+            font-size: 1rem;
+        }
         // .tborder:first-of-type {
         //     border-radius: 10px;
         // }
+        .dropdown-divider{
+            border-top: 1px solid #e3e3e3;
+  					margin: 10px;
+        }
 
         @media (min-width: 768px) {
             body {
@@ -161,33 +191,12 @@
         
     `);
        
-
-    // Force to smaller screen width
-//     const emulateMobile = () => {
-//         const width = 420; // Target mobile width (e.g., iPhone size)
-//         const height = window.innerHeight;
-//         document.documentElement.style.width = `${width}px`;
-//         document.documentElement.style.overflowX = "hidden";
-//         document.body.style.width = `${width}px`;
-//         document.body.style.overflowX = "hidden";
-//     };
-//     emulateMobile(); 
-
-    const adjustLayout = () => {
-        if (window.innerWidth < 768) {
-            document.body.style.padding = "10px";
-        } else {
-            document.body.style.padding = "0";
-        }
-    };
-    window.addEventListener('resize', adjustLayout);
-    adjustLayout(); 
     
     // NAVBAR
     const navbar = document.createElement('nav');
     navbar.className = 'navbar navbar-light bg-white';
-    navbar.style.height = '35px';
-    navbar.style.padding = '0 15px';
+    navbar.style.height = '40px';
+    navbar.style.padding = '2px 15px';
     navbar.style.borderBottom = '1px solid #ddd';
 
     navbar.innerHTML = `
@@ -199,7 +208,7 @@
             <div class=" d-flex align-items-center">
                 <!-- Message Icon -->
                 <a href="https://bitcointalk.org/index.php?action=pm" class="text-dark me-3" title="Messages">
-                    <i class="bi bi-chat-dots" style="color: #476C8E; font-size: 1.2rem;"></i>
+                    <i class="bi bi-chat-dots" style="color: #476C8E; font-size: 1.9rem;"></i>
                 </a>
 
                 <!-- Profile Dropdown -->
@@ -207,13 +216,13 @@
                     <button class="btn btn-white dropdown-toggle d-flex align-items-center" 
                             type="button" id="profileDropdown" data-bs-toggle="dropdown" 
                             aria-expanded="false" style="padding: 0; border: none;">
-                        <i class="bi bi-person" style="color: #476C8E; font-size: 1.5rem; margin-right: 5px;"></i>
+                        <i class="bi bi-person" style="color: #476C8E; font-size: 2rem; margin-right: 5px;"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                         <h3>Profile Info</h3>
                         <li class="d-flex align-items-center px-3 py-2">
-                            <img width="100" src="`+avatarSrc+`" class="me-2" alt="Avatar">
-                            <div>
+                            <img width="120" src="`+avatarSrc+`" class="me-2" alt="Avatar">
+                            <div class="username">
                                 <strong id="username">`+username+`</strong>
                             </div>
                         </li>
@@ -230,7 +239,6 @@
     document.body.insertBefore(navbar, document.body.firstChild);
 
     // SMF HEADER
-    
     const smfHeaderElement = document.getElementById('smfheader');
     if (smfHeaderElement) {
         smfHeaderElement.innerHTML = '';
@@ -240,7 +248,7 @@
         smfHeaderDiv.innerHTML = `
             <div><h1 class="mt-2">Bitcoin Forum</h1></div>
             <div class="mb-2">
-                <img src="https://bitcointalk.org/Themes/custom1/images/smflogo.gif" style="margin: 2px;" alt="">
+                <img src="https://bitcointalk.org/Themes/custom1/images/smflogo.gif" style="margin: 2px;" alt="smf forum logo" width="90%">
             </div>
             
         `;
@@ -286,7 +294,6 @@
      }
 
     // FORUM'S MENU
-
     // remove default menu header
     if (tables.length >= 4) {
         const fourthTable = tables[4];
@@ -371,6 +378,7 @@
             }
             #upshrinkHeader2 .hamburger-btn {
                 font-weight: 600;
+                font-size: 1.3rem;
             }
 
             #upshrinkHeader2 .dropdown-menu {
@@ -399,7 +407,7 @@
             #upshrinkHeader2 .dropdown-menu a {
                 color: #476C8E;
                 text-decoration: none;
-                font-size: 18px;
+                font-size: 1.3rem;
                 transition: color 0.3s;
             }
 
@@ -420,78 +428,86 @@
         document.head.appendChild(forumMenuStyle);
     } 
 
-    // BODY AREA
-    const navBodyAreaDiv = document.querySelector('#bodyarea .nav');
-    navBodyAreaDiv.classList.add('btt-title-area');
+    // HOME PAGE
+    if (window.location.href === "https://bitcointalk.org" || window.location.href === "https://bitcointalk.org/index.php" || window.location.href === "https://bitcointalk.org/") {
+       // BODY AREA
+        const navBodyAreaDiv = document.querySelector('#bodyarea .nav');
+        navBodyAreaDiv.classList.add('btt-title-area');
 
-    const tborderElements = document.querySelectorAll('#bodyarea .tborder');
-    tborderElements.forEach((tborder) => {
-        // Get the table inside each `tborder`
-        const table = tborder.querySelector('table');
+        const tborderElements = document.querySelectorAll('#bodyarea .tborder');
+        tborderElements.forEach((tborder) => {
+            // Get the table inside each `tborder`
+            const table = tborder.querySelector('table');
 
-        if (table) {
-            // Get all `tr` elements in the `tbody`
-            const rows = table.querySelectorAll('tbody > tr');
+            if (table) {
+                // Get all `tr` elements in the `tbody`
+                const rows = table.querySelectorAll('tbody > tr');
 
-            rows.forEach((row) => {
-                const cells = row.querySelectorAll('td');
-                let windowbg2Counter = 0;
-								
-                const windowbg = row.querySelectorAll('.windowbg')[1]; // Second windowbg
-                if (windowbg) {
-                    windowbg.remove();
-                }
-              
-                cells.forEach((cell, index) => {
-                    if (cell.classList.contains('windowbg')) {
-                        // Change rowspan="1" of every windowbg
-                        if (!cell.hasAttribute('rowspan') || cell.getAttribute('rowspan') !== '1') {
-                            cell.setAttribute('rowspan', '1');
-                        }
-                        return;
+                rows.forEach((row) => {
+                    const cells = row.querySelectorAll('td');
+                    let windowbg2Counter = 0;
+                                    
+                    const windowbg = row.querySelectorAll('.windowbg')[1]; // Second windowbg
+                    if (windowbg) {
+                        windowbg.remove();
                     }
-
-                    if (cell.classList.contains('windowbg2')) {
-                        windowbg2Counter++;
-
-                        if (windowbg2Counter === 2) {
-                            // This is the second `windowbg2` that we need to move
-
-                            const smallTextElement = cell.querySelector('.smalltext');
-                            if (smallTextElement) {
-                                // Remove all <br> tags inside the second windowbg2 (moved content)
-                                const brTags = smallTextElement.querySelectorAll('br');
-                                brTags.forEach(br => br.remove());
-                              	
-	
-                                // Create a new row to hold the smalltext
-                                const newRow = document.createElement('tr');
-                                const newCell = document.createElement('td');
-                                newCell.classList.add('windowbg2'); // Use the same class
-                                newCell.classList.add('board-last-post'); // Use the same class
-                                newCell.colSpan = 3; // Span across 3 columns
-                                newCell.innerHTML = smallTextElement.innerHTML;
-
-                                // Insert the new row after the current row
-                                row.after(newRow);
-                                newRow.appendChild(newCell);
-                            }
-
-                            // Remove the second `windowbg2` cell
-                            cell.remove();
-                        }
-                    }
-
-                    if (index === 1 && cell.classList.contains('windowbg')) {
-                        // If we encounter the second windowbg, remove it
+                
+                    cells.forEach((cell, index) => {
                         if (cell.classList.contains('windowbg')) {
-                            cell.remove();
+                            // Change rowspan="1" of every windowbg
+                            if (!cell.hasAttribute('rowspan') || cell.getAttribute('rowspan') !== '1') {
+                                cell.setAttribute('rowspan', '2');
+                            }
+                            return;
                         }
-                    }
+
+                        if (cell.classList.contains('windowbg2')) {
+                            windowbg2Counter++;
+
+                            if (windowbg2Counter === 2) {
+                                // This is the second `windowbg2` that we need to move
+
+                                const smallTextElement = cell.querySelector('.smalltext');
+                                if (smallTextElement) {
+                                    // Remove all <br> tags inside the second windowbg2 (moved content)
+                                    const brTags = smallTextElement.querySelectorAll('br');
+                                    brTags.forEach(br => br.remove());
+                                    
+        
+                                    // Create a new row to hold the smalltext
+                                    const newRow = document.createElement('tr');
+                                    const newCell = document.createElement('td');
+                                    newCell.classList.add('windowbg2'); // Use the same class
+                                    newCell.classList.add('board-last-post'); // Use the same class
+                                    newCell.colSpan = 3; // Span across 3 columns
+                                    newCell.innerHTML = smallTextElement.innerHTML;
+
+                                    // Insert the new row after the current row
+                                    row.after(newRow);
+                                    newRow.appendChild(newCell);
+                                }
+
+                                // Remove the second `windowbg2` cell
+                                cell.remove();
+                            }
+                        }
+
+                        if (index === 1 && cell.classList.contains('windowbg')) {
+                            // If we encounter the second windowbg, remove it
+                            if (cell.classList.contains('windowbg')) {
+                                cell.remove();
+                            }
+                        }
+                    });
                 });
-            });
-        }
-    });
+            }
+        });
+    } 
+    else{
+        console.log("no");
+    }
+
+    
   
 
 })();
