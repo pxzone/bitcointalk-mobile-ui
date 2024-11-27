@@ -589,11 +589,16 @@
                 }
             });
         }
-
-        const bordercolorTables = document.querySelectorAll('table.bordercolor');
+				
+    		const bordercolorTables = document.querySelectorAll('table.bordercolor');
+    		// Check if the third table exists
         if (bordercolorTables.length >= 2) {
-            const thirdTable = bordercolorTables[1]; 
-            const tbody = thirdTable.querySelector('tbody');
+            const secondTable = bordercolorTables[1]; 
+            secondTable.classList.add('table'); 
+            secondTable.classList.add('table-bordered'); 
+          
+            const tbody = secondTable.querySelector('tbody');
+
             if (tbody) {
                 // Remove the first <tr> inside the <tbody>
                 const firstRow = tbody.querySelector('tr');
@@ -608,7 +613,18 @@
                     const cells = row.querySelectorAll('td');
                   	
                   	const td4 = cells[3]; // Fourth <td>
-                    [1, 2, 4, 5, 6].forEach((index) => {
+                    const td3 = cells[2]; 
+                    // if (td4 && td3) {
+                    //     const anchor = td4.querySelector("a");
+                    //     if (anchor) {
+                    //         // td3.appendChild(anchor); // Move anchor to the third <td>
+                    //     }
+                    //     td4.remove(); // Remove the fourth <td>
+                    // }
+
+                    // Remove specific <td> elements (2nd, 5th, 6th, 7th)
+                    // Note: Array indices are 0-based
+                    [1, 3, 4, 5, 6].forEach((index) => {
                         if (cells[index]) {
                             cells[index].remove();
                         }
@@ -620,16 +636,18 @@
                         const small = td2.querySelector("small");
                         if (small) {
                             const brElement = document.createElement("br");
-                            const textNode = document.createTextNode("<span>Started by </span>");
+                            const textNode = document.createElement("span");
+                          	textNode.innerHTML = "Started by ";
                             textNode.classList.add('started-by'); // Use the same class
-                            small.before(brElement, textNode, anchor);
+
+                            small.before(brElement, textNode, anchor, ' ');
                         }
                     }
-                }); 
+                  
+                });
+              
             }
         }
-    
-
         
     } // end if
 })();
