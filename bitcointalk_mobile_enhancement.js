@@ -59,14 +59,14 @@
 
 
     // Stylesheets
-    const stylesheet = (css) => {
+    const homePageStylesheet = (css) => {
         const style = document.createElement('style');
         style.type = 'text/css';
         style.textContent = css;
         document.head.appendChild(style);
     };
 
-    stylesheet(`
+    homePageStylesheet(`
         body {
             transform: scale(0.8);
             transform-origin: top left;
@@ -140,27 +140,34 @@
             -webkit-box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.05);
             -moz-box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.05);
         }
-        #bodyarea {
-        	padding: 0px 10px !important;
-        }
-        #bodyarea .tborder {
-            border: none;
-            background-color: #FFFFFF;
-            border-radius: 10px;
-        }
-        .catbg2 {
-        	background: #A1BFD9 repeat-x;
-        	border-top-right-radius: 10px;
-        	border-top-left-radius: 10px;
-			border-bottom: none !important;
+        .board-last-post {
+            font-size: .9rem !important;
+            padding: 10px;
         }
         .bordercolor {
             border-bottom-right-radius: 10px;
             border-bottom-left-radius: 10px;
         }
-        .board-last-post {
-        	font-size: .9rem !important;
-            padding: 10px;
+        .dropdown-divider{
+            border-top: 1px solid #e3e3e3;
+            margin: 10px;
+        }
+        #bodyarea {
+             padding: 0px 10px !important;
+        }
+        #bodyarea .tborder {
+            border: none;
+             background-color: #FFFFFF;
+            border-radius: 10px;
+        }
+        #bodyarea .nav {
+            font-size: 1.2rem;
+        }
+        .catbg2 {
+            background: #A1BFD9 repeat-x;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+            border-bottom: none !important;
         }
         .windowbg, .windowbg2 {
             background-color: #fbfbfb;
@@ -170,25 +177,11 @@
             width: 50px;
         }
         .windowbg3 {
-          background-color: #f2f2f2;
+            background-color: #f2f2f2;
         }
         .windowbg2 a{
             font-size: 1rem;
         }
-        // .tborder:first-of-type {
-        //     border-radius: 10px;
-        // }
-        .dropdown-divider{
-            border-top: 1px solid #e3e3e3;
-  					margin: 10px;
-        }
-
-        @media (min-width: 768px) {
-            body {
-                transform: none;
-            }
-        }
-        
     `);
        
     
@@ -365,14 +358,10 @@
             /* Dropdown menu styles */
             #upshrinkHeader2 .dropdown-menu {
                 display: none;
-                // position: fixed;
-                // top: 0;
-                // left: 0;
-                width: 90%;
-                // height: 100%;
+                top: 2%;
+                width: 100%;
                 background-color: #fff;
                 color: #476C8E;
-                // z-index: 999;
                 border-radius: .2rem;
                 padding: 20px;
             }
@@ -407,7 +396,7 @@
             #upshrinkHeader2 .dropdown-menu a {
                 color: #476C8E;
                 text-decoration: none;
-                font-size: 1.3rem;
+                font-size: 1.5rem;
                 transition: color 0.3s;
             }
 
@@ -502,12 +491,145 @@
                 });
             }
         });
-    } 
-    else{
-        console.log("no");
     }
 
-    
-  
+    var boardURL = "https://bitcointalk.org/index.php?board=";
+    if (window.location.href.includes(boardURL)) {
+        console.log("board section");
 
+        // Stylesheets
+            
+        const boardPageStylesheet = (css) => {
+            const style = document.createElement('style');
+            style.type = 'text/css';
+            style.textContent = css;
+            document.head.appendChild(style);
+        };
+    
+        boardPageStylesheet(`
+            .tborder .bordercolor .catbg{
+                background: #A1BFD9 repeat-x;
+                border-top-right-radius: 10px;
+                border-top-left-radius: 10px;
+                border-bottom: none !important;
+            }
+            .titlebg2{
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+            }
+            .titlebg2 small {
+                font-size: .9rem;
+            }
+            .mirrortab_back a {
+                font-size: 1rem;
+            }
+            .started-by{
+                margin-top: 10px;
+            }
+            .newtxt{
+                color: #0D5393;
+                font-weight: bold;
+                font-size: .8rem;
+            }
+            .windowbg3 b span a {
+            	font-size: 1.1rem !important;
+              font-weight: 500 !important;
+            }
+            .windowbg3 span a {
+            	font-size: 1.1rem !important;
+              font-weight: 500 !important;
+            }
+            .windowbg b span a {
+            	font-size: 1.1rem !important;
+              font-weight: 500 !important;
+            }
+            
+        `);
+
+        const bodyArea = document.getElementById("bodyarea");
+        const topSubBoard = bodyArea.querySelector(".bordercolor");
+        if (topSubBoard) {
+            // Get all <tr> elements inside the first .bordercolor
+            const rows = topSubBoard.querySelectorAll("tbody > tr");
+            rows.forEach((row) => {
+
+                const windowbg2Cells = row.querySelectorAll(".windowbg2");
+  
+                // Ensure there are at least two .windowbg2 cells
+                if (windowbg2Cells.length > 1) {
+                    const secondWindowbg2 = windowbg2Cells[1]; // Second .windowbg2 cell
+                    const smallElement = secondWindowbg2.querySelector("small");
+
+                    if (smallElement) {
+
+                        const brTags = smallElement.querySelectorAll('br');
+                        brTags.forEach(br => br.remove())
+
+                        // Create a new row to hold the smalltext
+                        const newRow = document.createElement('tr');
+                        const newCell = document.createElement('td');
+                        newCell.classList.add('windowbg2'); // Use the same class
+                        newCell.classList.add('board-last-post'); // Use the same class
+                        newCell.classList.add('hr'); // Use the same class
+                        newCell.colSpan = 2; 
+                        newCell.innerHTML = smallElement.innerHTML;
+
+                        // Insert the new row after the current row
+                        row.after(newRow);
+                        newRow.appendChild(newCell);
+                    }
+  
+                    // Remove the second .windowbg2 cell
+                    secondWindowbg2.remove();
+                }
+  
+                const windowbg = row.querySelectorAll('.windowbg')[1]; // Second windowbg
+                if (windowbg) {
+                    windowbg.remove();
+                }
+            });
+        }
+
+        const bordercolorTables = document.querySelectorAll('table.bordercolor');
+        if (bordercolorTables.length >= 2) {
+            const thirdTable = bordercolorTables[1]; 
+            const tbody = thirdTable.querySelector('tbody');
+            if (tbody) {
+                // Remove the first <tr> inside the <tbody>
+                const firstRow = tbody.querySelector('tr');
+                if (firstRow) {
+                    firstRow.remove();
+                    console.log("Removed the first <tr> inside the <tbody>.");
+                }
+
+                // Process remaining <tr> elements
+                const rows = tbody.querySelectorAll('tr');
+                rows.forEach((row) => {
+                    const cells = row.querySelectorAll('td');
+                  	
+                  	const td4 = cells[3]; // Fourth <td>
+                    [1, 2, 4, 5, 6].forEach((index) => {
+                        if (cells[index]) {
+                            cells[index].remove();
+                        }
+                    });
+                    
+                    const anchor = td4.querySelector("a");
+                    const td2 = row.querySelector("td:nth-child(2)");
+                    if (td2) {
+                        const small = td2.querySelector("small");
+                        if (small) {
+                            const brElement = document.createElement("br");
+                            const textNode = document.createTextNode("<span>Started by </span>");
+                            textNode.classList.add('started-by'); // Use the same class
+                            small.before(brElement, textNode, anchor);
+                        }
+                    }
+                }); 
+            }
+        }
+    
+
+        
+    } // end if
 })();
