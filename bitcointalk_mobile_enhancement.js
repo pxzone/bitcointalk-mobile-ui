@@ -613,14 +613,6 @@
                     const cells = row.querySelectorAll('td');
                   	
                   	const td4 = cells[3]; // Fourth <td>
-                    const td3 = cells[2]; 
-                    // if (td4 && td3) {
-                    //     const anchor = td4.querySelector("a");
-                    //     if (anchor) {
-                    //         // td3.appendChild(anchor); // Move anchor to the third <td>
-                    //     }
-                    //     td4.remove(); // Remove the fourth <td>
-                    // }
 
                     // Remove specific <td> elements (2nd, 5th, 6th, 7th)
                     // Note: Array indices are 0-based
@@ -639,7 +631,6 @@
                             const textNode = document.createElement("span");
                           	textNode.innerHTML = "Started by ";
                             textNode.classList.add('started-by'); // Use the same class
-
                             small.before(brElement, textNode, anchor, ' ');
                         }
                     }
