@@ -284,6 +284,13 @@
         .small, small {
           font-size: 1rem;
         }
+        .vertical-table {
+        	text-align: center;
+        }
+        .titlebg .middletext a {
+        	font-size: 1rem;
+        }
+
 
     `);
        
@@ -442,7 +449,9 @@
           
         if(footerTable){
 	           	console.log("footer working");
-            footerTable.classList.add("vertical-table")
+            footerTable.classList.add("vertical-table");
+            footerTable.classList.add("text-center")
+
             const firstRow = footerTable.querySelector("tr");
             if (firstRow) {
                 const tds = firstRow.querySelectorAll(":scope td");
@@ -521,13 +530,10 @@
 
         const tborderElements = document.querySelectorAll('#bodyarea .tborder');
         tborderElements.forEach((tborder) => {
-            // Get the table inside each `tborder`
             const table = tborder.querySelector('table');
 
             if (table) {
-                // Get all `tr` elements in the `tbody`
                 const rows = table.querySelectorAll('tbody > tr');
-
                 rows.forEach((row) => {
                     const cells = row.querySelectorAll('td');
                     let windowbg2Counter = 0;
@@ -539,7 +545,6 @@
                 
                     cells.forEach((cell, index) => {
                         if (cell.classList.contains('windowbg')) {
-                            // Change rowspan="1" of every windowbg
                             if (!cell.hasAttribute('rowspan') || cell.getAttribute('rowspan') !== '1') {
                                 cell.setAttribute('rowspan', '2');
                             }
@@ -550,15 +555,11 @@
                             windowbg2Counter++;
 
                             if (windowbg2Counter === 2) {
-                                // This is the second `windowbg2` that we need to move
-
                                 const smallTextElement = cell.querySelector('.smalltext');
                                 if (smallTextElement) {
                                     // Remove all <br> tags inside the second windowbg2 (moved content)
                                     const brTags = smallTextElement.querySelectorAll('br');
                                     brTags.forEach(br => br.remove());
-                                    
-        
                                     // Create a new row to hold the smalltext
                                     const newRow = document.createElement('tr');
                                     const newCell = document.createElement('td');
@@ -566,12 +567,10 @@
                                     newCell.classList.add('board-last-post'); // Use the same class
                                     newCell.colSpan = 3; // Span across 3 columns
                                     newCell.innerHTML = smallTextElement.innerHTML;
-
                                     // Insert the new row after the current row
                                     row.after(newRow);
                                     newRow.appendChild(newCell);
                                 }
-
                                 // Remove the second `windowbg2` cell
                                 cell.remove();
                             }
@@ -746,7 +745,6 @@
         `);
 
       	const tableBorderColor = document.querySelectorAll('table.bordercolor');
-      	
         if (tableBorderColor.length >= 1) {
             const threadList = tableBorderColor[tableBorderColor.length - 1];
 						console.log('thread list');
@@ -923,7 +921,7 @@
               padding: 5px;
               background-color: #88A6C0 ;
               color: #fff !important;
-              margin-top: 10px;
+              line-height: 2.5rem;
             }
             .prevnext .navPages{
             	font-size: 1.2rem !important;
@@ -934,16 +932,72 @@
               color: #fff !important;
               margin-top: 3px;
             }
-            
+            .mirrortab_back a {
+            	font-size: 1rem !important;
+            }
+            .maintab_back a {
+            	font-size: 1rem !important;
+            }
+            .bordercolor {
+              border-radius:10px;
+              background: #F6F6F6;
+            }
+            .bordercolor .windowbg img{
+                width: 25px;
+            }
+            .bordercolor .windowbg2 img{
+                width: 25px;
+            }
+            .bordercolor .windowbg3 img{
+                width: 25px;
+            }
+            .unread-post-author {
+            	 font-size: 1rem !important;
+            }
+            .bullet {
+            	padding-top: 7px;
+            }
         `);
+       	
+        const mirrortabBackTd = document.querySelector('td.mirrortab_back a');
+        if (mirrortabBackTd) {
+            // Update the text content of the anchor tag
+            mirrortabBackTd.textContent = "Mark as Read";
+          	mirrortabBackTd.classList.add('btn');
+          	mirrortabBackTd.classList.add('btn-light');
+          	mirrortabBackTd.classList.add('btn-sm');
+        }
+      
+      	const maintab_back = document.querySelector('td.maintab_back a');
+        if (maintab_back) {
+            maintab_back.textContent = "Mark as Read";
+        }
+      
+        const middleTextTd = document.querySelector('td.middletext');
+        if (middleTextTd) {
+            middleTextTd.innerHTML = middleTextTd.innerHTML.replace(/\[\s*(<b>.*?<\/b>)\s*\]/, '$1');
+            middleTextTd.innerHTML = middleTextTd.innerHTML.replace(/^Pages:\s*/, '')
+        }
+      
+      	const navDiv = document.querySelector('table div.nav');
+        if (navDiv) {
+            navDiv.innerHTML = navDiv.innerHTML.replace(/&gt;/g, '<span class="bullet">•</span>');
+        }
+      
+        const secondTable = document.querySelector('#bodyarea table:nth-of-type(2)');
+        if (secondTable) {
+            secondTable.classList.add('vertical-table');
+            const secondTd = secondTable.querySelectorAll('td')[1]; // Get the second <td>
+            if (secondTd) {
+                secondTd.setAttribute('align', 'left');
+            }
+        }
        
-        const tables = document.querySelectorAll('table.bordercolor');
-        console.log(tables);
-       
-       const tableBorderColor = document.querySelectorAll('table.bordercolor');
+      
+       	const tables = document.querySelectorAll('table.bordercolor');
+       	const tableBorderColor = document.querySelectorAll('table.bordercolor');
         if (tableBorderColor.length >= 1) {
             const threadList = tableBorderColor[tableBorderColor.length - 1];
-						console.log('thread list');
             threadList.classList.add('table'); 
             threadList.classList.add('table-bordered'); 
             const tbody = threadList.querySelector('tbody');
@@ -956,7 +1010,8 @@
                 rows.forEach((row) => {
                   
                     const cells = row.querySelectorAll('td');
-                  	const td4 = cells[3];
+                  	const td4 = row.querySelector("td:nth-child(4)");
+                  console.log()
                     const anchor = td4.querySelector("a");
                   
                     [1, 3, 4, 5, 6].forEach((index) => {
@@ -980,18 +1035,9 @@
             }
         }
        	
-       const parentTd = document.querySelector('td.middletext');
-
-      // Check if the parent <td> exists
-      if (parentTd) {
-          let content = parentTd.innerHTML;
-          content = content.replace(/\[\s*(<a[^>]*>.*?<\/a>)\s*\]/, '$1');
-          parentTd.innerHTML = content;
-      }
-      const mirrortab_back = document.querySelector('.mirrortab_back');
-      if(mirrortab_back){
-        mirrortab_back.remove();
-      }
+        
+      
+        
 
      } // unread posts end if
   
