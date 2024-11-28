@@ -252,7 +252,7 @@
             font-size: 1.1rem;
         }
         .windowbg, .windowbg2 .windowbg3 {
-            background-color: #fbfbfb;
+            background-color: #f6f6f6;
             font-size: 1rem !important;
         }
         .windowbg img{
@@ -438,6 +438,7 @@
     // HOME PAGE
     if (window.location.href === "https://bitcointalk.org" || window.location.href === "https://bitcointalk.org/index.php" || window.location.href === "https://bitcointalk.org/") {
        // BODY AREA
+       console.log('homepage')
 
        // Stylesheets        
        const homePageStylesheet = (css) => {
@@ -618,26 +619,29 @@
       
       	// FOOTER
         // manipulating footer links/images
-        const tablesList = document.querySelectorAll("table");
-        if (tablesList.length >= 13) {
-            const footerTable = tablesList[12]; 
-            footerTable.classList.add("vertical-table")
-            const firstRow = footerTable.querySelector("tr");
-
-            if (firstRow) {
-                const tds = firstRow.querySelectorAll(":scope td");
-                if (tds.length >= 3) {
-                    if (tds[0]) tds[0].setAttribute("align", "center");
-                    if (tds[1]) tds[1].setAttribute("align", "center");
-                    if (tds[1]) tds[2].setAttribute("align", "center");
-                    if (tds[1]) tds[1].classList.add("smf-footer-links");
-                
-                    // Clone <td> elements
-                    const firstTd = tds[0].cloneNode(true);
-                    const secondTd = tds[1].cloneNode(true);
-                    firstRow.replaceChild(secondTd, tds[0]);
-                    firstRow.replaceChild(firstTd, tds[1]);
-                } 
+      	const tablesList = document.querySelectorAll("table");
+        if (tablesList.length > 0) {
+          	const footerTable = tablesList[tablesList.length - 1];
+          
+            if(footerTable){
+	           		console.log("footer working");
+                footerTable.classList.add("vertical-table")
+                const firstRow = footerTable.querySelector("tr");
+                if (firstRow) {
+                    const tds = firstRow.querySelectorAll(":scope td");
+                    if (tds.length >= 3) {
+                        if (tds[0]) tds[0].setAttribute("align", "center");
+                        if (tds[1]) tds[1].setAttribute("align", "center");
+                        if (tds[1]) tds[2].setAttribute("align", "center");
+                        if (tds[1]) tds[1].classList.add("smf-footer-links");
+                    
+                        // Clone <td> elements
+                        const firstTd = tds[0].cloneNode(true);
+                        const secondTd = tds[1].cloneNode(true);
+                        firstRow.replaceChild(secondTd, tds[0]);
+                        firstRow.replaceChild(firstTd, tds[1]);
+                    } 
+                }
             }
         }
       
@@ -645,7 +649,7 @@
 	
   
   	// BOARD PAGES
-    var boardURL = "https://bitcointalk.org/index.php?board=";
+    var boardURL = "https://bitcointalk.org/index.php?board";
     if (window.location.href.includes(boardURL)) {
         console.log("board section");
 
@@ -731,14 +735,58 @@
             .bordercolor .windowbg3 img{
                 width: 25px;
             }
+            .windowbg2 {
+                font-size: 1.1rem;
+            }
+            .bordercolor{
+            		border-radius: 10px;
+            }
            
             
         `);
 
-        const bodyArea = document.getElementById("bodyarea");
-        const topSubBoard = bodyArea.querySelector(".bordercolor");
-        if (topSubBoard) {
-            const rows = topSubBoard.querySelectorAll("tbody > tr");
+      	const tableBorderColor = document.querySelectorAll('table.bordercolor');
+      	
+        if (tableBorderColor.length >= 1) {
+            const threadList = tableBorderColor[tableBorderColor.length - 1];
+						console.log('thread list');
+            threadList.classList.add('table'); 
+            threadList.classList.add('table-bordered'); 
+            const tbody = threadList.querySelector('tbody');
+            if (tbody) {
+                const firstRow = tbody.querySelector('tr');
+                if (firstRow) {
+                    firstRow.remove();
+                }
+                const rows = tbody.querySelectorAll('tr');
+                rows.forEach((row) => {
+                  
+                    const cells = row.querySelectorAll('td');
+                  	const td4 = cells[3]; 
+                    [1, 3, 4, 5, 6].forEach((index) => {
+                        if (cells[index]) {
+                            cells[index].remove();
+                        }
+                    });
+                    const anchor = td4.querySelector("a");
+                    const td2 = row.querySelector("td:nth-child(2)");
+                    if (td2) {
+                        const small = td2.querySelector("small");
+                        if (small) {
+                            const brElement = document.createElement("br");
+                            const textNode = document.createElement("span");
+                          	textNode.innerHTML = "Started by ";
+                            textNode.classList.add('started-by'); 
+                            small.before(brElement, textNode, anchor, ' ');
+                        }
+                    }
+                });
+            }
+        }
+      	
+      	if(tableBorderColor.length >= 2){
+          const topSubBoard = tableBorderColor[0];
+      		const rows = topSubBoard.querySelectorAll("tbody > tr");
             rows.forEach((row) => {
                 const windowbg = row.querySelectorAll(".windowbg");
                 if(windowbg.length > 0){
@@ -768,93 +816,68 @@
                 }
             });
         }
-				
-    	const bordercolorTables = document.querySelectorAll('table.bordercolor');
-        if (bordercolorTables.length >= 2) {
-            const secondTable = bordercolorTables[1]; 
-            secondTable.classList.add('table'); 
-            secondTable.classList.add('table-bordered'); 
-            const tbody = secondTable.querySelector('tbody');
-            if (tbody) {
-                const firstRow = tbody.querySelector('tr');
-                if (firstRow) {
-                    firstRow.remove();
-                }
-                const rows = tbody.querySelectorAll('tr');
-                rows.forEach((row) => {
-                    const cells = row.querySelectorAll('td');
-                  	const td4 = cells[3]; 
-                    [1, 3, 4, 5, 6].forEach((index) => {
-                        if (cells[index]) {
-                            cells[index].remove();
-                        }
-                    });
-                    const anchor = td4.querySelector("a");
-                    const td2 = row.querySelector("td:nth-child(2)");
-                    if (td2) {
-                        const small = td2.querySelector("small");
-                        if (small) {
-                            const brElement = document.createElement("br");
-                            const textNode = document.createElement("span");
-                          	textNode.innerHTML = "Started by ";
-                            textNode.classList.add('started-by'); 
-                            small.before(brElement, textNode, anchor, ' ');
-                        }
-                    }
-                });
-            }
-        }
 
-  		const tables = document.querySelectorAll("table");
+        const tables = document.querySelectorAll('table'); // Convert NodeList to Array
+        console.log(tables)
+      
         // removing user action int the lower part of the board
-        if (tables.length >= 8) {
-            const seventhTable = tables[7]; 
-            const tbody = seventhTable.querySelector("tbody");
-            const firstRow = tbody ? tbody.querySelector("tr") : null;
-            if (firstRow) {
-                const tds = firstRow.querySelectorAll("td");
-                if (tds.length > 1) {
-                    tds[1].remove();
-                } 
+        if (tables.length > 0) {
+            const userActionBottom = tables[tables.length - 4];
+            if(userActionBottom){
+              const tbody = userActionBottom.querySelector("tbody");
+              const firstRow = tbody ? tbody.querySelector("tr") : null;
+              if (firstRow) {
+                  const tds = firstRow.querySelectorAll("td");
+                  if (tds.length > 1) {
+                      tds[1].remove();
+                  } 
+              }
+            }
+            
+        }
+      
+        	// topic/post Legends
+         if (tables.length > 0) {
+           	const legendTable = tables[tables.length - 2];
+            if(legendTable){
+              const tbody = legendTable.querySelector("tbody");
+              const firstRow = tbody ? tbody.querySelector("tr") : null;
+              if (firstRow) {
+                  const tds = firstRow.querySelectorAll("td");
+                  if (tds.length > 2) {
+                      tds[2].remove();
+              		} 
+            	}
+        		}
+         }
+      
+        // FOOTER
+        // manipulating footer links/images
+        if (tables.length > 0) {
+          	const footerTable = tables[tables.length - 1];
+          
+            if(footerTable){
+                footerTable.classList.add("vertical-table")
+                const firstRow = footerTable.querySelector("tr");
+                if (firstRow) {
+                    const tds = firstRow.querySelectorAll(":scope td");
+                    if (tds.length >= 3) {
+                        if (tds[0]) tds[0].setAttribute("align", "center");
+                        if (tds[1]) tds[1].setAttribute("align", "center");
+                        if (tds[1]) tds[2].setAttribute("align", "center");
+                        if (tds[1]) tds[1].classList.add("smf-footer-links");
+                    
+                        // Clone <td> elements
+                        const firstTd = tds[0].cloneNode(true);
+                        const secondTd = tds[1].cloneNode(true);
+                        firstRow.replaceChild(secondTd, tds[0]);
+                        firstRow.replaceChild(firstTd, tds[1]);
+                    } 
+                }
             }
         }
       
-        // removing move action select in the lower part of the board
-         if (tables.length >= 9) {
-            const eighthTable = tables[9]; // Index 7 is the 8th table
-            const tbody = eighthTable.querySelector("tbody");
-            const firstRow = tbody ? tbody.querySelector("tr") : null;
-            if (firstRow) {
-                const tds = firstRow.querySelectorAll("td");
-                if (tds.length > 2) {
-                    tds[2].remove();
-                } 
-            }
-        }
-    
-        // FOOTER
-        // manipulating footer links/images
-        if (tables.length >= 10) {
-            const tenthTable = tables[10]; 
-                tenthTable.classList.add("vertical-table")
-                const firstRow = tenthTable.querySelector("tr");
-
-            if (firstRow) {
-                const tds = firstRow.querySelectorAll(":scope td");
-                if (tds.length >= 3) {
-                    if (tds[0]) tds[0].setAttribute("align", "center");
-                    if (tds[1]) tds[1].setAttribute("align", "center");
-                    if (tds[1]) tds[2].setAttribute("align", "center");
-                    if (tds[1]) tds[1].classList.add("smf-footer-links");
-                
-                    // Clone <td> elements
-                    const firstTd = tds[0].cloneNode(true);
-                    const secondTd = tds[1].cloneNode(true);
-                    firstRow.replaceChild(secondTd, tds[0]);
-                    firstRow.replaceChild(firstTd, tds[1]);
-                } 
-            }
-        }
+      
     } // board page end if
   
   
