@@ -59,14 +59,14 @@
 
 
     // Stylesheets
-    const homePageStylesheet = (css) => {
+    const globalPageStylesheet = (css) => {
         const style = document.createElement('style');
         style.type = 'text/css';
         style.textContent = css;
         document.head.appendChild(style);
     };
 
-    homePageStylesheet(`
+    globalPageStylesheet(`
         body {
             transform: scale(0.8);
             transform-origin: top left;
@@ -75,6 +75,83 @@
             background: #e9eef2;
             font-size: 1.3rem;
             padding: 0px !important;
+        }
+        /* Hamburger button styles */
+        #upshrinkHeader2. hamburger-button {
+            font-size: 1rem;
+            font-weight: 600;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        #upshrinkHeader2 .hamburger-icon {
+            width: 30px;
+            height: 3px;
+            border-radius: 5px;
+        }
+
+        /* Dropdown menu styles */
+        #upshrinkHeader2 .dropdown-menu {
+            display: none;
+            top: 2%;
+            width: 100%;
+            background-color: #fff;
+            color: #476C8E;
+            border-radius: .2rem;
+            padding: 20px;
+        }
+        #upshrinkHeader2 .hamburger-btn {
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+
+        #upshrinkHeader2 .dropdown-menu {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        #upshrinkHeader2 .dropdown-menu h2 {
+            text-align: left;
+            color: #476C8E;
+            font-size: 1.5rem;
+        }
+
+        #upshrinkHeader2 .dropdown-menu ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        #upshrinkHeader2 .dropdown-menu li {
+            margin: 10px 0;
+            list-style-type: none;
+        }
+
+        #upshrinkHeader2 .dropdown-menu a {
+            color: #476C8E;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        #upshrinkHeader2 .dropdown-menu a:hover {
+            color: #e0e0ff;
+        }
+        #upshrinkHeader2 .dropdown-menu .close-btn {
+            color: #476C8E;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            position: absolute;
+            top: 5px;
+            right: 5px;
         }
         #smfheader {
             background: url(/Themes/custom1/images/catbg.jpg) #88A6C0 repeat-x;
@@ -147,7 +224,9 @@
         .bordercolor {
             border-bottom-right-radius: 10px;
             border-bottom-left-radius: 10px;
+            background: #F6F6F6;
         }
+        
         .dropdown-divider{
             border-top: 1px solid #e3e3e3;
             margin: 10px;
@@ -169,19 +248,43 @@
             border-top-left-radius: 10px;
             border-bottom: none !important;
         }
-        .windowbg, .windowbg2 {
+        .catbg2 a{
+            font-size: 1.1rem;
+        }
+        .windowbg, .windowbg2 .windowbg3 {
             background-color: #fbfbfb;
-            font-size: 1rem;
+            font-size: 1rem !important;
         }
         .windowbg img{
             width: 50px;
         }
         .windowbg3 {
+            padding: 15px 10px;
             background-color: #f2f2f2;
+        }
+        .windowbg2 b a{
+            font-size: 1.3rem;
         }
         .windowbg2 a{
             font-size: 1rem;
         }
+        .vertical-table td{
+            display: block;
+            width: 100%;
+        }
+        .smf-footer-links span{
+            font-size: .9rem;
+        }
+        .smf-footer-links{
+            margin-top:20px;
+        }
+        .titlebg2 {
+            border-radius: 10px;
+        }
+        .small, small {
+          font-size: 1rem;
+        }
+
     `);
        
     
@@ -265,13 +368,7 @@
         secondTable.parentNode.replaceChild(headerSecondTable, secondTable);
     } 
 
-    // const firstTborderElements = document.querySelectorAll('.tborder');
-    // if (firstTborderElements.length > 0) {
-    //     firstTborderElements.forEach(element => {
-    //         element.classList.add('new-class-name');
-    //     });
-    // }
-
+    
      // NEWS AREA
      const newsTargetElement = document.querySelector('#upshrinkHeader2 td[width="90%"].titlebg2');
      if (newsTargetElement) {
@@ -333,93 +430,65 @@
             dropdownMenu.style.display = 'none';  // Hide the dropdown menu when X is clicked
         });
 
-        // Add styles (optional for appearance)
-        const forumMenuStyle = document.createElement('style');
-        forumMenuStyle.innerHTML = `
-            /* Hamburger button styles */
-            #upshrinkHeader2. hamburger-button {
-                font-size: 1rem;
-                font-weight: 600;
-                background: none;
-                border: none;
-                cursor: pointer;
-                padding: 10px;
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
-            }
-
-            #upshrinkHeader2 .hamburger-icon {
-                width: 30px;
-                height: 3px;
-                border-radius: 5px;
-            }
-
-            /* Dropdown menu styles */
-            #upshrinkHeader2 .dropdown-menu {
-                display: none;
-                top: 2%;
-                width: 100%;
-                background-color: #fff;
-                color: #476C8E;
-                border-radius: .2rem;
-                padding: 20px;
-            }
-            #upshrinkHeader2 .hamburger-btn {
-                font-weight: 600;
-                font-size: 1.3rem;
-            }
-
-            #upshrinkHeader2 .dropdown-menu {
-                background-color: #fff;
-                border-radius: 8px;
-                padding: 20px;
-            }
-
-            #upshrinkHeader2 .dropdown-menu h2 {
-                text-align: left;
-                color: #476C8E;
-                font-size: 1.5rem;
-            }
-
-            #upshrinkHeader2 .dropdown-menu ul {
-                list-style-type: none;
-                padding: 0;
-                text-align: left;
-            }
-
-            #upshrinkHeader2 .dropdown-menu li {
-                margin: 10px 0;
-                list-style-type: none;
-            }
-
-            #upshrinkHeader2 .dropdown-menu a {
-                color: #476C8E;
-                text-decoration: none;
-                font-size: 1.5rem;
-                transition: color 0.3s;
-            }
-
-            #upshrinkHeader2 .dropdown-menu a:hover {
-                color: #e0e0ff;
-            }
-            #upshrinkHeader2 .dropdown-menu .close-btn {
-                color: #476C8E;
-                background: none;
-                border: none;
-                font-size: 20px;
-                cursor: pointer;
-                position: absolute;
-                top: 5px;
-                right: 5px;
-            }
-        `;
-        document.head.appendChild(forumMenuStyle);
+      
     } 
+		
+		
 
     // HOME PAGE
     if (window.location.href === "https://bitcointalk.org" || window.location.href === "https://bitcointalk.org/index.php" || window.location.href === "https://bitcointalk.org/") {
        // BODY AREA
+
+       // Stylesheets        
+       const homePageStylesheet = (css) => {
+            const style = document.createElement('style');
+            style.type = 'text/css';
+            style.textContent = css;
+            document.head.appendChild(style);
+        };
+
+        homePageStylesheet(`
+            .windowbg2 {
+                font-size: 1.1rem;
+            }
+            .tborder .catbg{
+                background: #A1BFD9 repeat-x;
+                border-top-right-radius: 10px;
+                border-top-left-radius: 10px;
+                border-bottom: none !important;
+            }
+            .windowbg2{
+                font-size: 1rem;
+            }
+            .windowbg2 b{
+                font-size: 1rem;
+            }
+            .windowbg2 b a {
+                font-size: 1.3rem;
+            }
+            .windowbg2 span b a {
+                font-size: 1rem;
+            }
+            .recent-posts-info-center td {
+                padding: 10px;
+              	font-size: 1rem;
+            }
+            .windowbg2 tr td b a{
+                font-size: 1rem;
+            }
+            #upshrinkHeaderIC .windowbg2 tr td b a{
+                font-size: 1rem;
+            }
+            #upshrinkHeaderIC td img {
+            		width: 40px;
+            }
+            #upshrinkHeaderIC .middletext{
+                font-size: 1rem;
+            }
+            
+        
+        `);
+
         const navBodyAreaDiv = document.querySelector('#bodyarea .nav');
         navBodyAreaDiv.classList.add('btt-title-area');
 
@@ -491,14 +560,96 @@
                 });
             }
         });
-    }
+      
+        const upshrinkHeaderIC = document.getElementById('upshrinkHeaderIC');
+        if (upshrinkHeaderIC) {
+            const tableBorderColor = upshrinkHeaderIC.querySelector('table');
+            tableBorderColor.classList.add('table'); 
+            tableBorderColor.classList.add('table-bordered'); 
+						
+						const table = upshrinkHeaderIC.querySelector('table');
+            if (table) {
+                const rows = table.querySelectorAll(':scope > tbody > tr');
+                const firstTr = rows[0];
+                if (firstTr) {
+                    firstTr.classList.add('recent-posts-info-center');
+                }
 
+                const thirdTr = rows[2];
+                if (thirdTr) {
+                    thirdTr.classList.add('recent-posts-info-center');
+                }
+
+                const forthTr = rows[3];
+                if (forthTr) {
+                    const forthInnerTableWindowbg = forthTr.querySelector('td.windowbg');
+                    if(forthInnerTableWindowbg){
+                        forthInnerTableWindowbg.remove();
+                    }
+                }
+            }  
+          
+          
+            const secondTr = upshrinkHeaderIC.querySelector('table tbody tr:nth-child(2)');
+            if (secondTr) {
+                const innerTableWindowbg = secondTr.querySelector('td.windowbg');
+                innerTableWindowbg.setAttribute("rowspan", "1");
+
+                if(innerTableWindowbg){
+                    innerTableWindowbg.remove();
+                }
+
+                const innerTable = secondTr.querySelector('td.windowbg2 table');
+                innerTable.setAttribute("cellpadding", "4");
+                if (innerTable) {
+                    const innerRows = innerTable.querySelectorAll('tr');
+                    innerRows.forEach(row => {
+                        const middleTextTds = row.querySelectorAll('td.middletext');
+
+                        if (middleTextTds.length === 2) {
+                            middleTextTds[0].setAttribute("colspan", "2");
+                            middleTextTds[0].innerHTML += middleTextTds[1].innerHTML;
+                            middleTextTds[1].remove();
+                        }
+                    });
+                } 
+            } 
+        } 
+      
+      	// FOOTER
+        // manipulating footer links/images
+        const tablesList = document.querySelectorAll("table");
+        if (tablesList.length >= 13) {
+            const footerTable = tablesList[12]; 
+            footerTable.classList.add("vertical-table")
+            const firstRow = footerTable.querySelector("tr");
+
+            if (firstRow) {
+                const tds = firstRow.querySelectorAll(":scope td");
+                if (tds.length >= 3) {
+                    if (tds[0]) tds[0].setAttribute("align", "center");
+                    if (tds[1]) tds[1].setAttribute("align", "center");
+                    if (tds[1]) tds[2].setAttribute("align", "center");
+                    if (tds[1]) tds[1].classList.add("smf-footer-links");
+                
+                    // Clone <td> elements
+                    const firstTd = tds[0].cloneNode(true);
+                    const secondTd = tds[1].cloneNode(true);
+                    firstRow.replaceChild(secondTd, tds[0]);
+                    firstRow.replaceChild(firstTd, tds[1]);
+                } 
+            }
+        }
+      
+    } // homepage end if
+	
+  
+  	// BOARD PAGES
     var boardURL = "https://bitcointalk.org/index.php?board=";
     if (window.location.href.includes(boardURL)) {
         console.log("board section");
 
-        // Stylesheets
-            
+        // Stylesheets        
         const boardPageStylesheet = (css) => {
             const style = document.createElement('style');
             style.type = 'text/css';
@@ -512,13 +663,15 @@
                 border-top-right-radius: 10px;
                 border-top-left-radius: 10px;
                 border-bottom: none !important;
+                font-size: 1rem;
+                padding: 15px 10px;
             }
             .titlebg2{
                 padding-left: 10px !important;
                 padding-right: 10px !important;
             }
             .titlebg2 small {
-                font-size: .9rem;
+                font-size: 1rem;
             }
             .mirrortab_back a {
                 font-size: 1rem;
@@ -532,40 +685,75 @@
                 font-size: .8rem;
             }
             .windowbg3 b span a {
-            	font-size: 1.1rem !important;
+            	font-size: 1.2rem !important;
               font-weight: 500 !important;
             }
             .windowbg3 span a {
-            	font-size: 1.1rem !important;
+            	font-size: 1.2rem !important;
               font-weight: 500 !important;
             }
             .windowbg b span a {
-            	font-size: 1.1rem !important;
+            	font-size: 1.2rem !important;
               font-weight: 500 !important;
             }
+            
+            .windowbg2 b a{
+                font-size: 1.3rem;
+            }
+            .windowbg2 a{
+                font-size: 1rem;
+            }
+            .windowbg2{
+                font-size: 1rem;
+            }
+            .board-last-post {
+                font-size: .9rem !important;
+                padding: 10px;
+            }
+            .maintab_back{
+                font-size: 1rem;
+            }
+            .middletext{
+                font-size: 1rem;
+            }
+            .navPages{
+                margin-top: -20px;
+            }
+            span.prevnext a:link {
+                font-size: 1.3rem;
+            }
+            .bordercolor .windowbg img{
+                width: 25px;
+            }
+            .bordercolor .windowbg2 img{
+                width: 25px;
+            }
+            .bordercolor .windowbg3 img{
+                width: 25px;
+            }
+           
             
         `);
 
         const bodyArea = document.getElementById("bodyarea");
         const topSubBoard = bodyArea.querySelector(".bordercolor");
         if (topSubBoard) {
-            // Get all <tr> elements inside the first .bordercolor
             const rows = topSubBoard.querySelectorAll("tbody > tr");
             rows.forEach((row) => {
-
+                const windowbg = row.querySelectorAll(".windowbg");
+                if(windowbg.length > 0){
+                    windowbg[0].setAttribute("rowspan", "2");
+                    if (windowbg[1]) {
+                        windowbg[1].remove();
+                    }
+                }
                 const windowbg2Cells = row.querySelectorAll(".windowbg2");
-  
-                // Ensure there are at least two .windowbg2 cells
                 if (windowbg2Cells.length > 1) {
                     const secondWindowbg2 = windowbg2Cells[1]; // Second .windowbg2 cell
                     const smallElement = secondWindowbg2.querySelector("small");
-
                     if (smallElement) {
-
                         const brTags = smallElement.querySelectorAll('br');
                         brTags.forEach(br => br.remove())
-
-                        // Create a new row to hold the smalltext
                         const newRow = document.createElement('tr');
                         const newCell = document.createElement('td');
                         newCell.classList.add('windowbg2'); // Use the same class
@@ -573,55 +761,34 @@
                         newCell.classList.add('hr'); // Use the same class
                         newCell.colSpan = 2; 
                         newCell.innerHTML = smallElement.innerHTML;
-
-                        // Insert the new row after the current row
                         row.after(newRow);
                         newRow.appendChild(newCell);
                     }
-  
-                    // Remove the second .windowbg2 cell
                     secondWindowbg2.remove();
-                }
-  
-                const windowbg = row.querySelectorAll('.windowbg')[1]; // Second windowbg
-                if (windowbg) {
-                    windowbg.remove();
                 }
             });
         }
 				
-    		const bordercolorTables = document.querySelectorAll('table.bordercolor');
-    		// Check if the third table exists
+    	const bordercolorTables = document.querySelectorAll('table.bordercolor');
         if (bordercolorTables.length >= 2) {
             const secondTable = bordercolorTables[1]; 
             secondTable.classList.add('table'); 
             secondTable.classList.add('table-bordered'); 
-          
             const tbody = secondTable.querySelector('tbody');
-
             if (tbody) {
-                // Remove the first <tr> inside the <tbody>
                 const firstRow = tbody.querySelector('tr');
                 if (firstRow) {
                     firstRow.remove();
-                    console.log("Removed the first <tr> inside the <tbody>.");
                 }
-
-                // Process remaining <tr> elements
                 const rows = tbody.querySelectorAll('tr');
                 rows.forEach((row) => {
                     const cells = row.querySelectorAll('td');
-                  	
-                  	const td4 = cells[3]; // Fourth <td>
-
-                    // Remove specific <td> elements (2nd, 5th, 6th, 7th)
-                    // Note: Array indices are 0-based
+                  	const td4 = cells[3]; 
                     [1, 3, 4, 5, 6].forEach((index) => {
                         if (cells[index]) {
                             cells[index].remove();
                         }
                     });
-                    
                     const anchor = td4.querySelector("a");
                     const td2 = row.querySelector("td:nth-child(2)");
                     if (td2) {
@@ -630,15 +797,65 @@
                             const brElement = document.createElement("br");
                             const textNode = document.createElement("span");
                           	textNode.innerHTML = "Started by ";
-                            textNode.classList.add('started-by'); // Use the same class
+                            textNode.classList.add('started-by'); 
                             small.before(brElement, textNode, anchor, ' ');
                         }
                     }
-                  
                 });
-              
             }
         }
-        
-    } // end if
+
+  		const tables = document.querySelectorAll("table");
+        // removing user action int the lower part of the board
+        if (tables.length >= 8) {
+            const seventhTable = tables[7]; 
+            const tbody = seventhTable.querySelector("tbody");
+            const firstRow = tbody ? tbody.querySelector("tr") : null;
+            if (firstRow) {
+                const tds = firstRow.querySelectorAll("td");
+                if (tds.length > 1) {
+                    tds[1].remove();
+                } 
+            }
+        }
+      
+        // removing move action select in the lower part of the board
+         if (tables.length >= 9) {
+            const eighthTable = tables[9]; // Index 7 is the 8th table
+            const tbody = eighthTable.querySelector("tbody");
+            const firstRow = tbody ? tbody.querySelector("tr") : null;
+            if (firstRow) {
+                const tds = firstRow.querySelectorAll("td");
+                if (tds.length > 2) {
+                    tds[2].remove();
+                } 
+            }
+        }
+    
+        // FOOTER
+        // manipulating footer links/images
+        if (tablesList.length >= 10) {
+            const tenthTable = tables[10]; 
+                tenthTable.classList.add("vertical-table")
+                const firstRow = tenthTable.querySelector("tr");
+
+            if (firstRow) {
+                const tds = firstRow.querySelectorAll(":scope td");
+                if (tds.length >= 3) {
+                    if (tds[0]) tds[0].setAttribute("align", "center");
+                    if (tds[1]) tds[1].setAttribute("align", "center");
+                    if (tds[1]) tds[2].setAttribute("align", "center");
+                    if (tds[1]) tds[1].classList.add("smf-footer-links");
+                
+                    // Clone <td> elements
+                    const firstTd = tds[0].cloneNode(true);
+                    const secondTd = tds[1].cloneNode(true);
+                    firstRow.replaceChild(secondTd, tds[0]);
+                    firstRow.replaceChild(firstTd, tds[1]);
+                } 
+            }
+        }
+    } // board page end if
+  
+  
 })();
