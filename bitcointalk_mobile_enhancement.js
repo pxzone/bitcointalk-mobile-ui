@@ -107,7 +107,7 @@
         }
         #upshrinkHeader2 .hamburger-btn {
             font-weight: 600;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
         }
 
         #upshrinkHeader2 .dropdown-menu {
@@ -434,11 +434,37 @@
     } 
 		
 		
-
+    // FOOTER
+    // manipulating footer links/images
+    const tablesList = document.querySelectorAll("table");
+    if (tablesList.length > 0) {
+        const footerTable = tablesList[tablesList.length - 1];
+          
+        if(footerTable){
+	           	console.log("footer working");
+            footerTable.classList.add("vertical-table")
+            const firstRow = footerTable.querySelector("tr");
+            if (firstRow) {
+                const tds = firstRow.querySelectorAll(":scope td");
+                if (tds.length >= 3) {
+                    if (tds[0]) tds[0].setAttribute("align", "center");
+                    if (tds[1]) tds[1].setAttribute("align", "center");
+                    if (tds[1]) tds[2].setAttribute("align", "center");
+                    if (tds[1]) tds[1].classList.add("smf-footer-links");
+                    
+                    // Clone <td> elements
+                    const firstTd = tds[0].cloneNode(true);
+                    const secondTd = tds[1].cloneNode(true);
+                    firstRow.replaceChild(secondTd, tds[0]);
+                    firstRow.replaceChild(firstTd, tds[1]);
+                } 
+            }
+        }
+    }
     // HOME PAGE
     if (window.location.href === "https://bitcointalk.org" || window.location.href === "https://bitcointalk.org/index.php" || window.location.href === "https://bitcointalk.org/") {
        // BODY AREA
-       console.log('homepage')
+       console.log('Accessing homepage...')
 
        // Stylesheets        
        const homePageStylesheet = (css) => {
@@ -617,33 +643,7 @@
             } 
         } 
       
-      	// FOOTER
-        // manipulating footer links/images
-      	const tablesList = document.querySelectorAll("table");
-        if (tablesList.length > 0) {
-          	const footerTable = tablesList[tablesList.length - 1];
-          
-            if(footerTable){
-	           		console.log("footer working");
-                footerTable.classList.add("vertical-table")
-                const firstRow = footerTable.querySelector("tr");
-                if (firstRow) {
-                    const tds = firstRow.querySelectorAll(":scope td");
-                    if (tds.length >= 3) {
-                        if (tds[0]) tds[0].setAttribute("align", "center");
-                        if (tds[1]) tds[1].setAttribute("align", "center");
-                        if (tds[1]) tds[2].setAttribute("align", "center");
-                        if (tds[1]) tds[1].classList.add("smf-footer-links");
-                    
-                        // Clone <td> elements
-                        const firstTd = tds[0].cloneNode(true);
-                        const secondTd = tds[1].cloneNode(true);
-                        firstRow.replaceChild(secondTd, tds[0]);
-                        firstRow.replaceChild(firstTd, tds[1]);
-                    } 
-                }
-            }
-        }
+      	
       
     } // homepage end if
 	
@@ -651,7 +651,7 @@
   	// BOARD PAGES
     var boardURL = "https://bitcointalk.org/index.php?board";
     if (window.location.href.includes(boardURL)) {
-        console.log("board section");
+        console.log("Accessing board section...");
 
         // Stylesheets        
         const boardPageStylesheet = (css) => {
@@ -851,34 +851,148 @@
         		}
          }
       
-        // FOOTER
-        // manipulating footer links/images
-        if (tables.length > 0) {
-          	const footerTable = tables[tables.length - 1];
-          
-            if(footerTable){
-                footerTable.classList.add("vertical-table")
-                const firstRow = footerTable.querySelector("tr");
+    } // board page end if
+    
+
+     // UNREAD POSTS
+    var unreadUrl = "https://bitcointalk.org/index.php?action=unread";
+    if (window.location.href.includes(unreadUrl)) {
+        console.log('Accessing Unread posts...');
+       
+       // Stylesheets        
+        const UnreadPageStylesheet = (css) => {
+            const style = document.createElement('style');
+            style.type = 'text/css';
+            style.textContent = css;
+            document.head.appendChild(style);
+        };
+    
+        UnreadPageStylesheet(`
+            .tborder .bordercolor .catbg{
+                background: #A1BFD9 repeat-x;
+                border-top-right-radius: 10px;
+                border-top-left-radius: 10px;
+                border-bottom: none !important;
+                font-size: 1rem;
+                padding: 15px 10px;
+            }
+            .newtxt{
+                color: #0D5393;
+                font-weight: bold;
+                font-size: .8rem;
+            }
+            .windowbg a {
+                font-size: 1.2rem !important;
+                font-weight: 500 !important;
+            }
+            .smalltext {
+              font-size: 1rem !important;
+            }
+            .smalltext a{
+              font-size: 1rem !important;
+            }
+            .smalltext a:last-of-type {
+                font-size: 1rem !important;
+            }
+            .started-by{
+                font-size: 1.1rem !important;
+            }
+            .unread-post-author{
+                font-size: 1.2rem !important
+            }
+            .middletext {
+            	padding-top: 10px !important;
+              padding-bottom: 10px;
+            }
+            .middletext a {
+            	margin-bottom: 25px !important;
+            }
+            .middletext b {
+            	font-size: 1.2rem;
+              border: 1px solid #acacac ;
+              border-radius: 5px;
+              padding: 5px;
+              background-color: #acacac ;
+              color: #fff !important;
+              margin-top: 10px;
+            }
+            .navPages{
+            	font-size: 1.2rem;
+              border: 1px solid #88A6C0 ;
+              border-radius: 5px;
+              padding: 5px;
+              background-color: #88A6C0 ;
+              color: #fff !important;
+              margin-top: 10px;
+            }
+            .prevnext .navPages{
+            	font-size: 1.2rem !important;
+              border: 1px solid #88A6C0 ;
+              border-radius: 5px;
+              padding: 5px;
+              background-color: #88A6C0 ;
+              color: #fff !important;
+              margin-top: 3px;
+            }
+            
+        `);
+       
+        const tables = document.querySelectorAll('table.bordercolor');
+        console.log(tables);
+       
+       const tableBorderColor = document.querySelectorAll('table.bordercolor');
+        if (tableBorderColor.length >= 1) {
+            const threadList = tableBorderColor[tableBorderColor.length - 1];
+						console.log('thread list');
+            threadList.classList.add('table'); 
+            threadList.classList.add('table-bordered'); 
+            const tbody = threadList.querySelector('tbody');
+            if (tbody) {
+                const firstRow = tbody.querySelector('tr');
                 if (firstRow) {
-                    const tds = firstRow.querySelectorAll(":scope td");
-                    if (tds.length >= 3) {
-                        if (tds[0]) tds[0].setAttribute("align", "center");
-                        if (tds[1]) tds[1].setAttribute("align", "center");
-                        if (tds[1]) tds[2].setAttribute("align", "center");
-                        if (tds[1]) tds[1].classList.add("smf-footer-links");
-                    
-                        // Clone <td> elements
-                        const firstTd = tds[0].cloneNode(true);
-                        const secondTd = tds[1].cloneNode(true);
-                        firstRow.replaceChild(secondTd, tds[0]);
-                        firstRow.replaceChild(firstTd, tds[1]);
-                    } 
+                    firstRow.remove();
                 }
+                const rows = tbody.querySelectorAll('tr');
+                rows.forEach((row) => {
+                  
+                    const cells = row.querySelectorAll('td');
+                  	const td4 = cells[3];
+                    const anchor = td4.querySelector("a");
+                  
+                    [1, 3, 4, 5, 6].forEach((index) => {
+                        if (cells[index]) {
+                            cells[index].remove();
+                        }
+                    });
+                    anchor.classList.add('unread-post-author'); 
+                    const td2 = row.querySelector("td:nth-child(2)");
+                    if (td2) {
+                        const small = td2.querySelector(".smalltext");
+                        if (small) {
+                            const brElement = document.createElement("br");
+                            const textNode = document.createElement("span");
+                          	textNode.innerHTML = "Started by ";
+                            textNode.classList.add('started-by'); 
+                            small.after(brElement, textNode, anchor, ' ');
+                        }
+                    }
+                });
             }
         }
-      
-      
-    } // board page end if
-  
+       	
+       const parentTd = document.querySelector('td.middletext');
+
+      // Check if the parent <td> exists
+      if (parentTd) {
+          let content = parentTd.innerHTML;
+          content = content.replace(/\[\s*(<a[^>]*>.*?<\/a>)\s*\]/, '$1');
+          parentTd.innerHTML = content;
+      }
+      const mirrortab_back = document.querySelector('.mirrortab_back');
+      if(mirrortab_back){
+        mirrortab_back.remove();
+      }
+
+     } // unread posts end if
   
 })();
