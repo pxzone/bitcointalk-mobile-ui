@@ -834,7 +834,7 @@
     
         // FOOTER
         // manipulating footer links/images
-        if (tablesList.length >= 10) {
+        if (tables.length >= 10) {
             const tenthTable = tables[10]; 
                 tenthTable.classList.add("vertical-table")
                 const firstRow = tenthTable.querySelector("tr");
