@@ -101,24 +101,28 @@
             top: 2%;
             width: 100%;
             background-color: #fff;
-            color: #476C8E;
+            color: #6096C5;
             border-radius: .2rem;
             padding: 20px;
         }
         #upshrinkHeader2 .hamburger-btn {
             font-weight: 600;
             font-size: 1.4rem;
+//             color: #6096C5;
         }
 
         #upshrinkHeader2 .dropdown-menu {
             background-color: #fff;
-            border-radius: 8px;
-            padding: 20px;
+            border-radius: 10px;
+            padding: 15px 15px;
+            box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.15);
+            -webkit-box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.15);
+            -moz-box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.15);
         }
 
         #upshrinkHeader2 .dropdown-menu h2 {
             text-align: left;
-            color: #476C8E;
+            color: #6096C5;
             font-size: 1.5rem;
         }
 
@@ -134,7 +138,7 @@
         }
 
         #upshrinkHeader2 .dropdown-menu a {
-            color: #476C8E;
+            color: #6096C5;
             text-decoration: none;
             font-size: 1.5rem;
             transition: color 0.3s;
@@ -144,7 +148,7 @@
             color: #e0e0ff;
         }
         #upshrinkHeader2 .dropdown-menu .close-btn {
-            color: #476C8E;
+            color: #6096C5;
             background: none;
             border: none;
             font-size: 1.8rem;
@@ -154,7 +158,12 @@
             right: 5px;
         }
         #smfheader {
-            background: url(/Themes/custom1/images/catbg.jpg) #88A6C0 repeat-x;
+//          background: url(/Themes/custom1/images/catbg.jpg) #88A6C0 repeat-x;
+          	background: rgb(59,122,177);
+            background: -moz-linear-gradient(180deg, rgba(59,122,177,1) 0%, rgba(96,150,197,1) 100%);
+            background: -webkit-linear-gradient(180deg, rgba(59,122,177,1) 0%, rgba(96,150,197,1) 100%);
+            background: linear-gradient(180deg, rgba(59,122,177,1) 0%, rgba(96,150,197,1) 100%);
+
             color: #ffffff;
             padding-left: 10px;
             padding-right: 10px;
@@ -243,7 +252,7 @@
             font-size: 1.2rem;
         }
         .catbg2 {
-            background: #A1BFD9 repeat-x;
+            background: #6096C5 repeat-x;
             border-top-right-radius: 10px;
             border-top-left-radius: 10px;
             border-bottom: none !important;
@@ -255,9 +264,7 @@
             background-color: #f6f6f6;
             font-size: 1rem !important;
         }
-        .windowbg img{
-            width: 50px;
-        }
+        
         .windowbg3 {
             padding: 15px 10px;
             background-color: #f2f2f2;
@@ -290,7 +297,12 @@
         .titlebg .middletext a {
         	font-size: 1rem;
         }
-
+				.bi{
+        	font-size: 1.7rem;
+        }
+        .main-menu-ul li a{
+            font-weight: 500;
+        }
 
     `);
        
@@ -311,7 +323,7 @@
             <div class=" d-flex align-items-center">
                 <!-- Message Icon -->
                 <a href="https://bitcointalk.org/index.php?action=pm" class="text-dark me-3" title="Messages">
-                    <i class="bi bi-chat-dots" style="color: #476C8E; font-size: 1.9rem;"></i>
+                    <i class="bi bi-chat-dots" style="color: #6096C5; font-size: 1.9rem;"></i>
                 </a>
 
                 <!-- Profile Dropdown -->
@@ -319,7 +331,7 @@
                     <button class="btn btn-white dropdown-toggle d-flex align-items-center" 
                             type="button" id="profileDropdown" data-bs-toggle="dropdown" 
                             aria-expanded="false" style="padding: 0; border: none;">
-                        <i class="bi bi-person" style="color: #476C8E; font-size: 2rem; margin-right: 5px;"></i>
+                        <i class="bi bi-person" style="color: #6096C5; font-size: 2rem; margin-right: 5px;"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                         <h3>Profile Info</h3>
@@ -351,7 +363,7 @@
         smfHeaderDiv.innerHTML = `
             <div><h1 class="mt-2">Bitcoin Forum</h1></div>
             <div class="mb-2">
-                <img src="https://bitcointalk.org/Themes/custom1/images/smflogo.gif" style="margin: 2px;" alt="smf forum logo" width="90%">
+                <img src="https://bitcointalk.org/Themes/custom1/images/smflogo.gif" style="margin: 2px;" alt="smf forum logo" width="80%">
             </div>
             
         `;
@@ -413,7 +425,7 @@
 
         dropdownMenu.innerHTML = `
             <h2>Main Menu</h2>
-            <ul>
+            <ul class="main-menu-ul">
                 <li><a href="https://bitcointalk.org/index.php"><i class="bi bi-house"></i> Home</a></li>
                 <li><a href="https://bitcointalk.org/index.php?action=help"><i class="bi bi-info-circle"></i> Help</a></li>
                 <li><a href="https://bitcointalk.org/index.php?action=search"><i class="bi bi-search"></i> Search</a></li>
@@ -488,7 +500,7 @@
                 font-size: 1.1rem;
             }
             .tborder .catbg{
-                background: #A1BFD9 repeat-x;
+                background: #6096C5 repeat-x;
                 border-top-right-radius: 10px;
                 border-top-left-radius: 10px;
                 border-bottom: none !important;
@@ -530,10 +542,13 @@
 
         const tborderElements = document.querySelectorAll('#bodyarea .tborder');
         tborderElements.forEach((tborder) => {
+            // Get the table inside each `tborder`
             const table = tborder.querySelector('table');
 
             if (table) {
+                // Get all `tr` elements in the `tbody`
                 const rows = table.querySelectorAll('tbody > tr');
+
                 rows.forEach((row) => {
                     const cells = row.querySelectorAll('td');
                     let windowbg2Counter = 0;
@@ -545,6 +560,7 @@
                 
                     cells.forEach((cell, index) => {
                         if (cell.classList.contains('windowbg')) {
+                            // Change rowspan="1" of every windowbg
                             if (!cell.hasAttribute('rowspan') || cell.getAttribute('rowspan') !== '1') {
                                 cell.setAttribute('rowspan', '2');
                             }
@@ -555,11 +571,15 @@
                             windowbg2Counter++;
 
                             if (windowbg2Counter === 2) {
+                                // This is the second `windowbg2` that we need to move
+
                                 const smallTextElement = cell.querySelector('.smalltext');
                                 if (smallTextElement) {
                                     // Remove all <br> tags inside the second windowbg2 (moved content)
                                     const brTags = smallTextElement.querySelectorAll('br');
                                     brTags.forEach(br => br.remove());
+                                    
+        
                                     // Create a new row to hold the smalltext
                                     const newRow = document.createElement('tr');
                                     const newCell = document.createElement('td');
@@ -567,10 +587,12 @@
                                     newCell.classList.add('board-last-post'); // Use the same class
                                     newCell.colSpan = 3; // Span across 3 columns
                                     newCell.innerHTML = smallTextElement.innerHTML;
+
                                     // Insert the new row after the current row
                                     row.after(newRow);
                                     newRow.appendChild(newCell);
                                 }
+
                                 // Remove the second `windowbg2` cell
                                 cell.remove();
                             }
@@ -662,7 +684,7 @@
     
         boardPageStylesheet(`
             .tborder .bordercolor .catbg{
-                background: #A1BFD9 repeat-x;
+                background: #6096C5 repeat-x;
                 border-top-right-radius: 10px;
                 border-top-left-radius: 10px;
                 border-bottom: none !important;
@@ -712,6 +734,7 @@
             .board-last-post {
                 font-size: .9rem !important;
                 padding: 10px;
+//                 border-top: 1px solid #E0E1E8;
             }
             .maintab_back{
                 font-size: 1rem;
@@ -745,6 +768,7 @@
         `);
 
       	const tableBorderColor = document.querySelectorAll('table.bordercolor');
+      	
         if (tableBorderColor.length >= 1) {
             const threadList = tableBorderColor[tableBorderColor.length - 1];
 						console.log('thread list');
@@ -867,7 +891,7 @@
     
         UnreadPageStylesheet(`
             .tborder .bordercolor .catbg{
-                background: #A1BFD9 repeat-x;
+                background: #6096C5 repeat-x;
                 border-top-right-radius: 10px;
                 border-top-left-radius: 10px;
                 border-bottom: none !important;
@@ -916,21 +940,21 @@
             }
             .navPages{
             	font-size: 1.2rem;
-              border: 1px solid #88A6C0 ;
-              border-radius: 5px;
-              padding: 5px;
-              background-color: #88A6C0 ;
-              color: #fff !important;
-              line-height: 2.5rem;
+                border: 1px solid #6096C5 ;
+                border-radius: 5px;
+                padding: 5px;
+                background-color: #6096C5 ;
+                color: #fff !important;
+                line-height: 2.5rem;
             }
             .prevnext .navPages{
-            	font-size: 1.2rem !important;
-              border: 1px solid #88A6C0 ;
-              border-radius: 5px;
-              padding: 5px;
-              background-color: #88A6C0 ;
-              color: #fff !important;
-              margin-top: 3px;
+                font-size: 1.2rem !important;
+                border: 1px solid #6096C5 ;
+                border-radius: 5px;
+                padding: 5px;
+                background-color: #6096C5 ;
+                color: #fff !important;
+                margin-top: 3px;
             }
             .mirrortab_back a {
             	font-size: 1rem !important;
@@ -939,8 +963,8 @@
             	font-size: 1rem !important;
             }
             .bordercolor {
-              border-radius:10px;
-              background: #F6F6F6;
+                border-radius:10px;
+                background: #F6F6F6;
             }
             .bordercolor .windowbg img{
                 width: 25px;
@@ -972,7 +996,8 @@
         if (maintab_back) {
             maintab_back.textContent = "Mark as Read";
         }
-      
+        
+        // pagination
         const middleTextTd = document.querySelector('td.middletext');
         if (middleTextTd) {
             middleTextTd.innerHTML = middleTextTd.innerHTML.replace(/\[\s*(<b>.*?<\/b>)\s*\]/, '$1');
@@ -1011,7 +1036,6 @@
                   
                     const cells = row.querySelectorAll('td');
                   	const td4 = row.querySelector("td:nth-child(4)");
-                  console.log()
                     const anchor = td4.querySelector("a");
                   
                     [1, 3, 4, 5, 6].forEach((index) => {
@@ -1034,11 +1058,450 @@
                 });
             }
         }
-       	
-        
-      
-        
-
      } // unread posts end if
+
+    // Topic/user posts page 
+    var unreadUrl = "https://bitcointalk.org/index.php?topic=";
+    if (window.location.href.includes(unreadUrl)) {
+        console.log('Accessing users posts...');
+       
+       // Stylesheets        
+        const usersPostsPageStylesheet = (css) => {
+            const style = document.createElement('style');
+            style.type = 'text/css';
+            style.textContent = css;
+            document.head.appendChild(style);
+        };
+    
+        usersPostsPageStylesheet(`
+            .middletext {
+            	padding-top: 10px !important;
+              padding-bottom: 10px;
+            }
+            .middletext a {
+            	margin-bottom: 25px !important;
+            }
+            .middletext b {
+            	font-size: 1.2rem;
+              border: 1px solid #acacac ;
+              border-radius: 5px;
+              padding: 5px;
+              background-color: #acacac ;
+              color: #fff !important;
+              margin-top: 10px;
+            }
+            .navPages{
+            	font-size: 1.2rem;
+                border: 1px solid #6096C5;
+                border-radius: 5px;
+                padding: 5px;
+                background-color: #6096C5;
+                color: #fff !important;
+                line-height: 2.5rem;
+            }
+            .prevnext .navPages{
+                font-size: 1.2rem !important;
+                border: 1px solid #6096C5;
+                border-radius: 5px;
+                padding: 5px;
+                background-color: #6096C5;
+                color: #fff !important;
+                margin-top: 3px;
+            }
+            .mirrortab_back a {
+            	font-size: 1rem !important;
+            }
+            .maintab_back a {
+            	font-size: 1rem !important;
+            }
+             .bordercolor {
+                border-radius:10px;
+                background: #F6F6F6;
+            }
+            .catbg3 {
+                background: #6096C5 repeat-x;
+                border-top-right-radius: 10px;
+                border-top-left-radius: 10px;
+                border-bottom: none !important;
+                width: 100%;
+            }
+            .catbg3 #top_subject {
+                padding: 14px 20px;
+            }
+            tr div .post{
+                 overflow-x: hidden; /* Prevent horizontal scrolling */
+                word-wrap: break-word; /* Break long words to the next line */
+                white-space: normal;
+            }
+            .bordercolor {
+                width: 100%; /* Make the table responsive */
+                table-layout: auto; /* Allow dynamic column width adjustment */
+                border-collapse: collapse; 
+            }
+            .bordercolor td, th {
+                word-wrap: break-word; /
+                white-space: normal; /* Allow text wrapping */
+                overflow: hidden;
+                text-align: left; 
+            }
+             /* Post contents */
+            .post {
+                width: 120vw;
+                overflow-x: hidden;
+                word-wrap: break-word;
+                white-space: normal;
+                font-size: 1.05rem !important;
+                font-weight: 400;
+                border-radius: 20px;
+                background: #fff;
+                padding: 15px 15px 25px 15px;
+                position: relative;
+                box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.05);
+                -webkit-box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.05);
+                -moz-box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.05);
+            }
+            .post .quote {
+                font-size: .9rem !important;
+                color: #000000;
+                background-color: #f8f8f8;
+                border: 1px solid #e4e4e4;
+                padding: 5px;
+                margin: 1px 3px 6px 6px;
+                line-height: 1.4em;
+                border-radius: 10px;
+            }
+            .post .quoteheader {
+                font-size: .9rem !important;
+            }
+            .post .quoteheader a {
+                font-size: .9rem;
+            }
+            /* Subject */
+            tr.catbg3 td {
+                background: #6096C5 repeat-x;
+            }
+            #top_subject {
+            		font-size: 1.5rem;
+  							padding: 15px !important;
+            }
+            .subject {
+                font-size: 1.2rem !important;
+                width: 120vw;
+  							padding: 10px 10px;
+            }
+            /* Date */
+            .subject .smalltext{
+                font-size: .9rem !important;
+            }
+            /* Signature */
+            .signature {
+            		/* width: 120vw; */
+                overflow-x: hidden;
+                word-wrap: break-word;
+                white-space: normal;
+                padding: 5px;
+                font-size: .8rem;
+                margin-bottom: 20px;
+            }
+            .td_headerandpost td > div:nth-of-type(2) {
+            		font-size: .9rem;
+  							padding: 0px 10px 0px 10px
+            }
+            .td_headerandpost td > div:nth-of-type(3) {
+            		font-size: 1rem;
+                padding: 2px 10px 5px 10px;
+            }
+            
+            @media (max-width: 480) {
+    						
+            }
+            
+            @media (max-width: 428) {
+    						
+            }
+            @media (max-width: 375) {
+    					
+            }
+            @media (max-width: 320) {
+    						
+            }
+            sub {
+            		line-height: 1.3;
+            }
+            .user-post-action {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.05);
+            }
+
+           	/* user action button quote/merit/report */
+            .user-post-action .btn {
+            		padding: 5px 10px;
+                font-size: 14px;
+                cursor: pointer;
+                border: 1px solid #ccc;
+                background-color: #fff;
+                border-radius: 4px;
+                color: #476C8E;
+            }
+            .user-post-wrapper {
+            		margin: 10px 0px;
+            }
+            .user-post-wrapper .dropdown-menu {
+                width: 100vw;
+                background-color: #fff;
+                border-radius: 10px;
+                padding: 20px;
+            }
+            .user-post-wrapper .dropdown-toggle::after {
+                display: none !important;
+            }
+            .post-username {
+            		color: #476C8E;
+            }
+            .left .nav a {
+            		
+            }
+
+          }
+        `);
+    
+        // pagination
+        const middleTextTd = document.querySelector('td.middletext');
+        if (middleTextTd) {
+            middleTextTd.innerHTML = middleTextTd.innerHTML.replace(/\[\s*(<b>.*?<\/b>)\s*\]/, '$1');
+            middleTextTd.innerHTML = middleTextTd.innerHTML.replace(/^Pages:\s*/, '')
+        }
+      
+      	const firstTable = document.querySelector('#bodyarea table:nth-of-type(1)');
+        if (firstTable) {
+            firstTable.classList.add('vertical-table');
+            const secondTd = firstTable.querySelectorAll('td')[1]; // Get the second <td>
+            if (secondTd) {
+                secondTd.setAttribute('align', 'left');
+            }
+        }
+				
+      	const thirdTable = document.querySelector('#bodyarea table:nth-of-type(2)');
+        if (thirdTable) {
+            // Find the row(s) with the class .catbg3 inside the second table
+            const catbg3Rows = thirdTable.querySelectorAll('.catbg3');
+            catbg3Rows.forEach(row => {
+                // Remove the first <td> inside the .catbg3 row
+                const firstTd = row.querySelector('td:first-of-type');
+                if (firstTd) firstTd.remove();
+        
+                // Remove the second <td> inside the .catbg3 row
+                const secondTd = row.querySelector('td:first-of-type'); // After removing the first, this is the new first
+                if (secondTd) secondTd.remove();
+        
+                // Get the data from the third <td>
+                const thirdTd = row.querySelector('td:first-of-type'); // After two removals, this is the new first
+                 if (thirdTd) {
+                    const textContent = thirdTd.textContent.trim(); // Trim leading and trailing whitespace
+                    const trimmedData = textContent.replace(/\(Read.*$/, '').trim(); // Trim the last word with "(Read"
+                    const finalTrimmedData = trimmedData.substring(7);
+
+                    const match = textContent.match(/\(Read\s+(\d+)/);
+                    const readCount = match ? parseInt(match[1], 10) : null;
+                    
+                    const topSubject = document.getElementById('top_subject');
+                    if (topSubject) {
+                        topSubject.textContent = finalTrimmedData;
+                    }
+
+                }
+            });
+        }
+      	
+        document.querySelectorAll('.signature').forEach(signature => {
+            const hrcolor = signature.parentNode.querySelector('.hrcolor');
+            if (hrcolor) {
+                hrcolor.remove(); // Remove the `.hrcolor` from its current position
+                signature.insertAdjacentElement('afterend', hrcolor); // Move it after the `.signature`
+            }
+        });
+ 				
+      
+    const quickModForm = document.getElementById('quickModForm');
+    // Check if form exists
+    if (quickModForm) {
+        // Get the first table and its rows
+        const tableRows = quickModForm.querySelectorAll('table tbody > tr');
+
+        tableRows.forEach(row => {
+            // Get the td.msgcl1
+            const msgCl1 = row.querySelector('td.msgcl1');
+            if (!msgCl1) return;
+
+            // Find the nested table inside .msgcl1
+            const innerTable = msgCl1.querySelector('table tbody');
+            if (!innerTable) return;
+
+            // Get the .windowbg or .windowbg2 td
+            const windowBgTd = innerTable.querySelector('.windowbg, .windowbg2');
+            if (!windowBgTd) return;
+
+            // Find the nested table inside this td
+            const innerMostTable = windowBgTd.querySelector('table tbody');
+            if (!innerMostTable) return;
+
+            const innerRows = innerMostTable.querySelectorAll('tr');
+
+            // Extract data from the first tr
+            const firstRow = innerRows[0];
+            if (firstRow) {
+                const posterInfoTd = firstRow.querySelector('.poster_info');
+                if (posterInfoTd) {
+                    var usernameElement = posterInfoTd.querySelector('b a');
+                    var spanElement = posterInfoTd.querySelector('span');
+                  	var userOP = spanElement.outerText == '(OP)' ? spanElement.outerHTML : '';
+                   	var userOnlineStatus = spanElement.outerText == ' Online' ? '<img src="https://bitcointalk.org/Themes/custom1/images/useron.gif" alt="Online" border="0" style="margin-top: 2px;">' : '';
+                  	
+                  	const userHref = usernameElement.href;
+                    const userHrefMatch = userHref.match(/u=(\d+)/);
+                    var userId = userHrefMatch ? parseInt(userHrefMatch[1], 10) : null;
+                  
+                    const smallTextElement = posterInfoTd.querySelector('.smalltext');
+                    if (smallTextElement) {
+                        var smallTextContent = smallTextElement.innerHTML;
+
+                        var position = smallTextContent.split('<br>')[0]?.trim();
+                        const activityMatch = smallTextContent.split('<br>')[4]?.trim();
+                        var activityCount = activityMatch ? activityMatch.replace('Activity:', '').trim() : '';
+
+                        // Extract "meritCount" (after the 5th <br>)
+                        const meritMatch = smallTextContent.split('<br>')[5]?.trim();
+                        var meritCount = meritMatch ? meritMatch.replace('Merit:', '').trim() : '';
+
+                        // Extract "personalText" (after the 8th <br>)
+                        const personalTextMatch = smallTextContent.split('<br>')[8]?.trim();
+                        var personalText = personalTextMatch || '';
+                      	
+                      
+                      	if (smallTextElement) {
+                            const avatarImg = smallTextElement.querySelector('img.avatar');
+                          	var avatar = "";
+			
+                            if (avatarImg) {
+                                const imgSrc = avatarImg.src;
+                      					var avatar = imgSrc ? `<img src="${imgSrc}" class="avatar" alt="avatar">` : '';
+                      					var avatarDropdown = imgSrc ? `<img width="120" src="${imgSrc}" class="avatar" alt="avatar">` : '';
+                            } 
+                        }
+
+                    }
+                  	posterInfoTd.remove();
+                }
+            }
+
+            // Extract data from the second td.td_headerandpost
+            const secondTd = firstRow.querySelector('.td_headerandpost');
+            if (secondTd) {
+                // Remove <img>
+                const images = secondTd.querySelectorAll('img');
+                images.forEach(img => img.remove());
+              	const firstTd = secondTd.querySelector('td:first-child');
+
+                // Get the anchor and extract the userPostId and postMsgId
+                var anchorElement = secondTd.querySelector('a');
+                var userPosturl = anchorElement ? anchorElement.href : '';
+                var postMsgId = anchorElement ? anchorElement.href.split('#msg')[1] : '';
+								
+              	var meritReceived = secondTd.querySelector('div:last-child')?.innerHTML || '';
+              	firstTd.remove();
+            }
+
+            // Extract data from the third td
+            if (secondTd) {
+            		const thirdTd = secondTd.querySelector('td:nth-of-type(2)');;
+                var anchors = thirdTd.querySelectorAll('a');
+                var quoteMsg = anchors[0] ? anchors[0].href : '';
+                var meritPost = anchors[1] ? anchors[1].href : '';
+                var msgNum = anchors[2].innerText.substr(1) - 1;
+              	thirdTd.remove();
+            }
+          
+          	const modifiedTDs = document.querySelectorAll('td[id*="modified_"]');
+            modifiedTDs.forEach(td => {
+              const nextTd = td.nextElementSibling;
+              if (nextTd) {
+                  const anchor = nextTd.querySelector('a');
+                  nextTd.remove();
+              }
+            });
+          
+          	const thread_url = window.location.href;
+            const topicData = thread_url.split('topic=');
+            const topicId = topicData[1].split('.msg')
+
+          
+            if (secondTd) {
+                const postDiv = secondTd.querySelector('.post');
+                if (postDiv) {
+                    const userPostWrapper = `
+                    <div class="user-post-wrapper d-flex justify-content-between mb-3">
+                        <div class="text-start">
+                            <div class="dropdown">
+                              <button class="btn btn-white dropdown-toggle d-flex align-items-center" type="button" id="userProfileDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0; border: none;">
+                                  ${userOnlineStatus} <span class="post-username fw-bolder"  >${usernameElement.innerText}</span>  ${userOP}
+                              </button>
+                              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userProfileDropdown">
+                                  <li class="d-flex align-items-center">
+                                      
+                                      <div class="post-username text-start">
+                                          <strong id="userpost_username"><a class="username fw-bolder" href="${usernameElement.href}" >${usernameElement.innerText}</a> ${userOnlineStatus} ${userOP}
+                                          </strong>
+                                      </div>
+                                  </li>
+                                  <li>
+                                  	<div class="">
+                                    		<hr class="dropdown-divider">
+                                      	${avatarDropdown}
+                                        
+                                    </div>
+                                  </li>
+                                  <li><hr class="dropdown-divider">Activity: ${activityCount}</li>
+                                  <li><hr class="dropdown-divider">Merit: ${meritCount}</li>
+                              </ul>
+                          </div>
+                            <div class="user-position">${position}</div>
+                            <div class="useravatar mt-1">${avatar}</div>
+                            
+                        </div>
+                        <div class="text-end">
+                            <div id="user_post_action" class="uactionid_${postMsgId}">
+                                <div class="user-post-action">
+                                    <div class="btn-group">
+                                        <a class="btn" href="${quoteMsg}">Quote</a>
+                                        <a class="btn" href="${meritPost}">Merit</a>
+                                        <a class="btn" href="https://bitcointalk.org/index.php?action=reporttm;topic=${topicId}.${msgNum};msg=${postMsgId}">Report</a>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr mb-3"></div>
+                    `;
+
+                    postDiv.innerHTML = userPostWrapper + postDiv.innerHTML; // Append the existing post data
+                }
+            }
+
+            // Handle the second tr for .windowbg or .windowbg2
+            const secondRow = innerRows[1];
+            if (secondRow) {
+                const modifiedTds = secondRow.querySelectorAll('td[id*="modified_"]');
+                modifiedTds.forEach(td => {
+                    td.innerHTML = ''; // Clear the content
+                });
+            }
+        });
+    };
+      
+    } // Topic/user posts page end if
   
 })();
