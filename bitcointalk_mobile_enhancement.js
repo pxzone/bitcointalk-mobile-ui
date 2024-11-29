@@ -1187,7 +1187,7 @@
             .subject {
                 font-size: 1.2rem !important;
                 width: 120vw;
-  							padding: 10px 10px;
+  							padding: 0px 10px 5px 10px;
             }
             /* Date */
             .subject .smalltext{
@@ -1195,13 +1195,14 @@
             }
             /* Signature */
             .signature {
-            		/* width: 120vw; */
-                overflow-x: hidden;
+            		width: 120vw; 
                 word-wrap: break-word;
-                white-space: normal;
                 padding: 5px;
                 font-size: .8rem;
                 margin-bottom: 20px;
+                overflow-x: auto; /* Enables horizontal scrolling */
+                overflow-y: hidden; /* Hides vertical scrolling */
+                white-space: nowrap;
             }
             .td_headerandpost td > div:nth-of-type(2) {
             		font-size: .9rem;
@@ -1358,7 +1359,7 @@
                     var usernameElement = posterInfoTd.querySelector('b a');
                     var spanElement = posterInfoTd.querySelector('span');
                   	var userOP = spanElement.outerText == '(OP)' ? spanElement.outerHTML : '';
-                   	var userOnlineStatus = spanElement.outerText == ' Online' ? '<img src="https://bitcointalk.org/Themes/custom1/images/useron.gif" alt="Online" border="0" style="margin-top: 2px;">' : '';
+                   	var userOnlineStatus = spanElement.outerText == ' Online' ? '<img src="https://bitcointalk.org/Themes/custom1/images/useron.gif" alt="Online" border="0" style="margin-top: 6px; margin-left: 2px;">' : '';
                   	
                   	const userHref = usernameElement.href;
                     const userHrefMatch = userHref.match(/u=(\d+)/);
@@ -1379,6 +1380,7 @@
                         // Extract "personalText" (after the 8th <br>)
                         const personalTextMatch = smallTextContent.split('<br>')[8]?.trim();
                         var personalText = personalTextMatch || '';
+                      	console.log(personalText)
                       	
                       
                       	if (smallTextElement) {
@@ -1446,13 +1448,12 @@
                         <div class="text-start">
                             <div class="dropdown">
                               <button class="btn btn-white dropdown-toggle d-flex align-items-center" type="button" id="userProfileDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0; border: none;">
-                                  ${userOnlineStatus} <span class="post-username fw-bolder"  >${usernameElement.innerText}</span>  ${userOP}
+                                   <span class="post-username fw-bolder">${usernameElement.innerText}</span> ${userOnlineStatus} ${userOP}
                               </button>
                               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userProfileDropdown">
                                   <li class="d-flex align-items-center">
-                                      
                                       <div class="post-username text-start">
-                                          <strong id="userpost_username"><a class="username fw-bolder" href="${usernameElement.href}" >${usernameElement.innerText}</a> ${userOnlineStatus} ${userOP}
+                                          <strong id="userpost_username"><a class="username fw-bolder" href="${usernameElement.href}"> ${usernameElement.innerText}</a> ${userOnlineStatus} ${userOP}
                                           </strong>
                                       </div>
                                   </li>
