@@ -98,7 +98,7 @@
         /* Dropdown menu styles */
         #upshrinkHeader2 .dropdown-menu {
             display: none;
-            top: 2%;
+            top: 1%;
             width: 100%;
             background-color: #fff;
             color: #6096C5;
@@ -115,9 +115,9 @@
             background-color: #fff;
             border-radius: 10px;
             padding: 15px 15px;
-            box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.15);
-            -webkit-box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.15);
-            -moz-box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.15);
+            box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.2);
+            -webkit-box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.2);
+            -moz-box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.2);
         }
 
         #upshrinkHeader2 .dropdown-menu h2 {
@@ -154,8 +154,8 @@
             font-size: 1.8rem;
             cursor: pointer;
             position: absolute;
-            top: 5px;
-            right: 5px;
+            top: 10px;
+            right: 10px;
         }
         #smfheader {
 //          background: url(/Themes/custom1/images/catbg.jpg) #88A6C0 repeat-x;
@@ -460,7 +460,6 @@
         const footerTable = tablesList[tablesList.length - 1];
           
         if(footerTable){
-	           	console.log("footer working");
             footerTable.classList.add("vertical-table");
             footerTable.classList.add("text-center")
 
@@ -1195,7 +1194,8 @@
             }
             /* Signature */
             .signature {
-            		width: 120vw; 
+            		width: 120vw;
+                height: 50vh;
                 word-wrap: break-word;
                 padding: 5px;
                 font-size: .8rem;
@@ -1262,8 +1262,12 @@
             .post-username {
             		color: #476C8E;
             }
-            .left .nav a {
-            		
+            .thread-post-date {
+            		width: 120vw;
+                font-size: .9rem;
+            }
+            .jumpto-div{
+            		width: 110vw;
             }
 
           }
@@ -1492,7 +1496,6 @@
                 }
             }
 
-            // Handle the second tr for .windowbg or .windowbg2
             const secondRow = innerRows[1];
             if (secondRow) {
                 const modifiedTds = secondRow.querySelectorAll('td[id*="modified_"]');
@@ -1502,6 +1505,37 @@
             }
         });
     };
+      
+    const verticalTable = document.querySelector('table.vertical-table');
+    if (verticalTable) {
+        const tdWithNav = verticalTable.querySelector('td > div.nav');
+        if (tdWithNav) {
+            const anchors = tdWithNav.querySelectorAll('a');
+            anchors.forEach((anchor, index) => {
+                if (index < 2) {
+                    anchor.classList.add('btn'); 
+                    anchor.classList.add('btn-light'); 
+                    anchor.classList.add('btn-sm'); 
+                    anchor.classList.add('mt-1');
+                    anchor.classList.add('me-1');
+                }
+            });
+        }
+    }
+     
+    const firstSubjectDiv = document.querySelector('div.subject');
+    if (firstSubjectDiv) {
+        const nextDiv = firstSubjectDiv.nextElementSibling;
+        if (nextDiv) {
+            nextDiv.classList.add('thread-post-date'); // Replace 'new-class' with your desired class name
+        }
+        firstSubjectDiv.remove();
+    }
+		
+    const jumpto = document.querySelector('#jumpto');
+    jumpto.classList.add('jumpto-div'); 
+     
+
       
     } // Topic/user posts page end if
   
