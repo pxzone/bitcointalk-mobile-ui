@@ -303,9 +303,35 @@
         .main-menu-ul li a{
             font-weight: 500;
         }
+        .highlight-gt {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        
+        .nav {
+        		display: inline-block;
+        }
+
 
     `);
-       
+      
+  	// Detect all text nodes containing ">" and wrap them in a span
+    function wrapGreaterThan() {
+        const elements = document.body.querySelectorAll("*"); // Select all elements in the document
+        elements.forEach(element => {
+            if (element.tagName === "SCRIPT" || element.tagName === "STYLE") return;
+            element.childNodes.forEach(child => {
+                if (child.nodeType === Node.TEXT_NODE && child.nodeValue.includes(">")) {
+                    const updatedHTML = child.nodeValue.replace(/>/g, '<span class="highlight-gt">&gt;</span>');
+                    const wrapper = document.createElement("span");
+                    wrapper.innerHTML = updatedHTML;
+                    element.replaceChild(wrapper, child);
+                }
+            });
+        });
+    }
+//     wrapGreaterThan();
+
     
     // NAVBAR
     const navbar = document.createElement('nav');
@@ -669,7 +695,7 @@
 	
   
   	// BOARD PAGES
-    var boardURL = "https://bitcointalk.org/index.php?board";
+    var boardURL = "https://bitcointalk.org/index.php?board=";
     if (window.location.href.includes(boardURL)) {
         console.log("Accessing board section...");
 
@@ -712,7 +738,7 @@
             	font-size: 1.2rem !important;
               font-weight: 500 !important;
             }
-            .windowbg3 span a {
+            .windowbg2 span a {
             	font-size: 1.2rem !important;
               font-weight: 500 !important;
             }
@@ -761,6 +787,9 @@
             }
             .bordercolor{
             		border-radius: 10px;
+            }
+             .windowbg a, .windowbg2 a, .windowbg3 a {
+                font-size: 1rem !important;
             }
            
             
@@ -1060,8 +1089,8 @@
      } // unread posts end if
 
     // Topic/user posts page 
-    var unreadUrl = "https://bitcointalk.org/index.php?topic=";
-    if (window.location.href.includes(unreadUrl)) {
+    var threadUrl = "https://bitcointalk.org/index.php?topic=";
+    if (window.location.href.includes(threadUrl)) {
         console.log('Accessing users posts...');
        
        // Stylesheets        
@@ -1180,13 +1209,13 @@
                 background: #6096C5 repeat-x;
             }
             #top_subject {
-            		font-size: 1.5rem;
-  							padding: 15px !important;
+            	font-size: 1.5rem;
+  				padding: 15px !important;
             }
             .subject {
                 font-size: 1.2rem !important;
                 width: 120vw;
-  							padding: 0px 10px 5px 10px;
+  				padding: 0px 10px 5px 10px;
             }
             /* Date */
             .subject .smalltext{
@@ -1194,7 +1223,7 @@
             }
             /* Signature */
             .signature {
-            		width: 120vw;
+            	width: 120vw;
                 height: 50vh;
                 word-wrap: break-word;
                 padding: 5px;
@@ -1205,8 +1234,8 @@
                 white-space: nowrap;
             }
             .td_headerandpost td > div:nth-of-type(2) {
-            		font-size: .9rem;
-  							padding: 0px 10px 0px 10px
+            	font-size: .9rem;
+  				padding: 0px 10px 0px 10px
             }
             .td_headerandpost td > div:nth-of-type(3) {
             		font-size: 1rem;
@@ -1227,7 +1256,7 @@
     						
             }
             sub {
-            		line-height: 1.3;
+            	line-height: 1.3;
             }
             .user-post-action {
                 list-style-type: none;
@@ -1239,7 +1268,7 @@
 
            	/* user action button quote/merit/report */
             .user-post-action .btn {
-            		padding: 5px 10px;
+            	padding: 5px 10px;
                 font-size: 14px;
                 cursor: pointer;
                 border: 1px solid #ccc;
@@ -1248,7 +1277,7 @@
                 color: #476C8E;
             }
             .user-post-wrapper {
-            		margin: 10px 0px;
+            	margin: 10px 0px;
             }
             .user-post-wrapper .dropdown-menu {
                 width: 100vw;
@@ -1260,14 +1289,17 @@
                 display: none !important;
             }
             .post-username {
-            		color: #476C8E;
+            	color: #476C8E;
             }
             .thread-post-date {
-            		width: 120vw;
+            	width: 120vw;
                 font-size: .9rem;
             }
             .jumpto-div{
-            		width: 110vw;
+            	width: 110vw;
+            }
+            .font-sm {
+            		font-size: .85rem
             }
 
           }
@@ -1384,7 +1416,6 @@
                         // Extract "personalText" (after the 8th <br>)
                         const personalTextMatch = smallTextContent.split('<br>')[8]?.trim();
                         var personalText = personalTextMatch || '';
-                      	console.log(personalText)
                       	
                       
                       	if (smallTextElement) {
@@ -1452,7 +1483,7 @@
                         <div class="text-start">
                             <div class="dropdown">
                               <button class="btn btn-white dropdown-toggle d-flex align-items-center" type="button" id="userProfileDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0; border: none;">
-                                   <span class="post-username fw-bolder">${usernameElement.innerText}</span> ${userOnlineStatus} ${userOP}
+                                   <span class="post-username fw-bolder">${usernameElement.innerText}</span> ${userOnlineStatus} <span> ${userOP}</span>
                               </button>
                               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userProfileDropdown">
                                   <li class="d-flex align-items-center">
@@ -1474,6 +1505,8 @@
                           </div>
                             <div class="user-position">${position}</div>
                             <div class="useravatar mt-1">${avatar}</div>
+                            <div class="useravatar mt-1 font-sm">${personalText}</div>
+
                             
                         </div>
                         <div class="text-end">
@@ -1504,38 +1537,94 @@
                 });
             }
         });
-    };
+    	};
       
-    const verticalTable = document.querySelector('table.vertical-table');
-    if (verticalTable) {
-        const tdWithNav = verticalTable.querySelector('td > div.nav');
-        if (tdWithNav) {
-            const anchors = tdWithNav.querySelectorAll('a');
-            anchors.forEach((anchor, index) => {
-                if (index < 2) {
-                    anchor.classList.add('btn'); 
-                    anchor.classList.add('btn-light'); 
-                    anchor.classList.add('btn-sm'); 
-                    anchor.classList.add('mt-1');
-                    anchor.classList.add('me-1');
-                }
-            });
-        }
-    }
-     
-    const firstSubjectDiv = document.querySelector('div.subject');
-    if (firstSubjectDiv) {
-        const nextDiv = firstSubjectDiv.nextElementSibling;
-        if (nextDiv) {
-            nextDiv.classList.add('thread-post-date'); // Replace 'new-class' with your desired class name
-        }
-        firstSubjectDiv.remove();
-    }
-		
-    const jumpto = document.querySelector('#jumpto');
-    jumpto.classList.add('jumpto-div'); 
-     
+      const verticalTable = document.querySelector('table.vertical-table');
+      if (verticalTable) {
+          const tdWithNav = verticalTable.querySelector('td > div.nav');
+          if (tdWithNav) {
+              const anchors = tdWithNav.querySelectorAll('a');
+              anchors.forEach((anchor, index) => {
+                  if (index < 2) {
+                      anchor.classList.add('btn'); 
+                      anchor.classList.add('btn-light'); 
+                      anchor.classList.add('btn-sm'); 
+                      anchor.classList.add('mt-1');
+                      anchor.classList.add('me-1');
+                  }
+              });
+          }
+      }
 
+      const verticalTable2 = document.querySelector('table.vertical-table tr td.middletext');
+       if(verticalTable2){
+          const middleTxt = verticalTable2.classList.add('text-start');
+       }
+      
+       const targetTd = document.querySelector("table.vertical-table tr td.mirrortab_back");
+       if (targetTd) {
+          const anchors = targetTd.querySelectorAll("a");
+          const dropdownContainer = document.createElement("div");
+          dropdownContainer.className = "dropdown-container"; 
+
+          // Create a button to toggle the dropdown
+          const toggleButton = document.createElement("button");
+          toggleButton.textContent = "User Actions";
+          toggleButton.className = "dropdown-toggle"; 
+          dropdownContainer.appendChild(toggleButton);
+        	toggleButton.classList.add('btn')
+        	toggleButton.classList.add('btn-light');
+        	toggleButton.classList.add('btn-light');
+         	toggleButton.style.marginLeft  = "-5px"; 
+
+          // Create the dropdown menu
+          const dropdownMenu = document.createElement("div");
+          dropdownMenu.className = "dropdown-menu";
+          dropdownMenu.style.display = "none"; 
+
+          anchors.forEach(anchor => {
+              const menuItem = document.createElement("div");
+              menuItem.className = "dropdown-item"; 
+              const link = document.createElement("a");
+        			link.classList.add('text-capitalize')
+              link.href = anchor.href; 
+              link.textContent = anchor.textContent; 
+              for (const attr of anchor.attributes) {
+                  link.setAttribute(attr.name, attr.value);
+              }
+              menuItem.appendChild(link);
+              dropdownMenu.appendChild(menuItem);
+          });
+          dropdownContainer.appendChild(dropdownMenu);
+          targetTd.innerHTML = "";
+          targetTd.appendChild(dropdownContainer); 
+          toggleButton.addEventListener("click", () => {
+              dropdownMenu.style.display = dropdownMenu.style.display === "none" ? "block" : "none";
+          });
+      }
+
+
+      const firstSubjectDiv = document.querySelector('div.subject');
+      if (firstSubjectDiv) {
+          const nextDiv = firstSubjectDiv.nextElementSibling;
+          if (nextDiv) {
+              nextDiv.classList.add('thread-post-date'); 
+          }
+          firstSubjectDiv.remove();
+      }
+
+      const jumpto = document.querySelector('#jumpto');
+      jumpto.classList.add('jumpto-div'); 
+
+      const tborderTable = document.querySelector("table.tborder");
+      if (tborderTable) {
+          // Add inline style
+          tborderTable.style.borderBottom = "0px"; 
+          tborderTable.style.width = "100%";   
+          tborderTable.style.overflowX  = "auto"; 
+          tborderTable.style.display  = "table"; 
+        
+      }
       
     } // Topic/user posts page end if
   
