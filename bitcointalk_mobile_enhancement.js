@@ -50,7 +50,6 @@
     document.head.appendChild(bootstrapIcons);
 
     document.querySelectorAll('.menu').forEach(el => el.classList.add('nav', 'nav-pills', 'flex-column'));
-
   	document.querySelectorAll('table').forEach(table => {
         table.style.width = "100%";
         table.style.overflowX = "auto";
@@ -297,6 +296,20 @@
         .titlebg .middletext a {
         	font-size: 1rem;
         }
+        tr.titlebg td{
+            background: #6096C5 repeat-x;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+            border-bottom: none !important;
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            color: #fff;
+        }
+        .tborder {
+        		margin-top: 1rem;
+        }
+        
 				.bi{
         	font-size: 1.7rem;
         }
@@ -315,22 +328,7 @@
 
     `);
       
-  	// Detect all text nodes containing ">" and wrap them in a span
-    function wrapGreaterThan() {
-        const elements = document.body.querySelectorAll("*"); // Select all elements in the document
-        elements.forEach(element => {
-            if (element.tagName === "SCRIPT" || element.tagName === "STYLE") return;
-            element.childNodes.forEach(child => {
-                if (child.nodeType === Node.TEXT_NODE && child.nodeValue.includes(">")) {
-                    const updatedHTML = child.nodeValue.replace(/>/g, '<span class="highlight-gt">&gt;</span>');
-                    const wrapper = document.createElement("span");
-                    wrapper.innerHTML = updatedHTML;
-                    element.replaceChild(wrapper, child);
-                }
-            });
-        });
-    }
-//     wrapGreaterThan();
+  	
 
     
     // NAVBAR
@@ -734,6 +732,10 @@
                 font-weight: bold;
                 font-size: .8rem;
             }
+            .windowbg3 span a {
+            	font-size: 1.2rem !important;
+              font-weight: 500 !important;
+            }
             .windowbg3 b span a {
             	font-size: 1.2rem !important;
               font-weight: 500 !important;
@@ -794,14 +796,16 @@
            
             
         `);
+       
 
       	const tableBorderColor = document.querySelectorAll('table.bordercolor');
-      	
         if (tableBorderColor.length >= 1) {
             const threadList = tableBorderColor[tableBorderColor.length - 1];
-						console.log('thread list');
+ 
             threadList.classList.add('table'); 
             threadList.classList.add('table-bordered'); 
+            threadList.style.display = "table";
+          
             const tbody = threadList.querySelector('tbody');
             if (tbody) {
                 const firstRow = tbody.querySelector('tr');
@@ -836,6 +840,7 @@
       	
       	if(tableBorderColor.length >= 2){
           const topSubBoard = tableBorderColor[0];
+          topSubBoard.style.display = "table"; 
       		const rows = topSubBoard.querySelectorAll("tbody > tr");
             rows.forEach((row) => {
                 const windowbg = row.querySelectorAll(".windowbg");
@@ -900,6 +905,8 @@
             	}
         		}
          }
+      
+      
       
     } // board page end if
     
@@ -1064,23 +1071,24 @@
                   
                     const cells = row.querySelectorAll('td');
                   	const td4 = row.querySelector("td:nth-child(4)");
-                    const anchor = td4.querySelector("a");
-                  
-                    [1, 3, 4, 5, 6].forEach((index) => {
-                        if (cells[index]) {
-                            cells[index].remove();
-                        }
-                    });
-                    anchor.classList.add('unread-post-author'); 
-                    const td2 = row.querySelector("td:nth-child(2)");
-                    if (td2) {
-                        const small = td2.querySelector(".smalltext");
-                        if (small) {
-                            const brElement = document.createElement("br");
-                            const textNode = document.createElement("span");
-                          	textNode.innerHTML = "Started by ";
-                            textNode.classList.add('started-by'); 
-                            small.after(brElement, textNode, anchor, ' ');
+                    if(td4){
+                        const anchor = td4.querySelector("a");
+                        [1, 3, 4, 5, 6].forEach((index) => {
+                            if (cells[index]) {
+                                cells[index].remove();
+                            }
+                        });
+                        anchor.classList.add('unread-post-author'); 
+                        const td2 = row.querySelector("td:nth-child(2)");
+                        if (td2) {
+                            const small = td2.querySelector(".smalltext");
+                            if (small) {
+                                const brElement = document.createElement("br");
+                                const textNode = document.createElement("span");
+                                textNode.innerHTML = "Started by ";
+                                textNode.classList.add('started-by'); 
+                                small.after(brElement, textNode, anchor, ' ');
+                            }
                         }
                     }
                 });
@@ -1301,8 +1309,24 @@
             .font-sm {
             		font-size: .85rem
             }
-
-          }
+            td .td_headerandpost .smalltext i {
+            		font-size: .95rem;
+            }
+            td .td_headerandpost .smalltext i a{
+            		font-size: .95rem;
+            }
+            .code {
+                font-size: .85rem;
+                line-height: 1.4em;
+                border: 1px solid #b1b1b1;
+          	}
+          	.user-position {
+								font-size: .9rem;
+            }
+            .user-post-dropdown  li{
+//             		border-top: 1px solid #e3e3e3;
+  							margin: 10px 10px;
+            }
         `);
     
         // pagination
@@ -1369,7 +1393,6 @@
         const tableRows = quickModForm.querySelectorAll('table tbody > tr');
 
         tableRows.forEach(row => {
-            // Get the td.msgcl1
             const msgCl1 = row.querySelector('td.msgcl1');
             if (!msgCl1) return;
 
@@ -1395,7 +1418,7 @@
                     var usernameElement = posterInfoTd.querySelector('b a');
                     var spanElement = posterInfoTd.querySelector('span');
                   	var userOP = spanElement.outerText == '(OP)' ? spanElement.outerHTML : '';
-                   	var userOnlineStatus = spanElement.outerText == ' Online' ? '<img src="https://bitcointalk.org/Themes/custom1/images/useron.gif" alt="Online" border="0" style="margin-top: 6px; margin-left: 2px;">' : '';
+                   	var userOnlineStatus = spanElement.outerText == ' Online' ? '<li><img src="https://bitcointalk.org/Themes/custom1/images/useron.gif" alt="Online" border="0" style="margin-top: -4px; margin-left: 2px;"></li>' : '';
                   	
                   	const userHref = usernameElement.href;
                     const userHrefMatch = userHref.match(/u=(\d+)/);
@@ -1404,29 +1427,84 @@
                     const smallTextElement = posterInfoTd.querySelector('.smalltext');
                     if (smallTextElement) {
                         var smallTextContent = smallTextElement.innerHTML;
-
                         var position = smallTextContent.split('<br>')[0]?.trim();
-                        const activityMatch = smallTextContent.split('<br>')[4]?.trim();
-                        var activityCount = activityMatch ? activityMatch.replace('Activity:', '').trim() : '';
+                      	
+                      	var activityCount = "";
+                        if (smallTextElement.innerHTML.includes('Activity:')) {
+                            const match = smallTextElement.innerHTML.match(/Activity:\s*\d+/);
+                            if (match) {
+                                activityCount = `<li>${match[0]}</li>`;
+                            }
+                        }
+                      
+												var meritCount = "";
+                        if (smallTextElement.innerHTML.includes('Merit:')) {
+                            const match = smallTextElement.innerHTML.match(/Merit:\s*\d+/);
+                            if (match) {
+                                meritCount = `<li>${match[0]}</li>`;
+                            }
+                        }
+                      
+                      	var postCount = "";
+                        if (smallTextElement.innerHTML.includes('Posts:')) {
+                            const match = smallTextElement.innerHTML.match(/Posts:\s*\d+/);
+                            if (match) {
+                                postCount = `<li>${match[0]}</li>`;
+                            }
+                        }
+                      	
+                      
+                      	const anchors = smallTextElement.querySelectorAll('a');
+                      	var ignoreAnchor = "";
+                      	var unIgnoreAnchor = "";
+                      	var trustCount = "";
+                      
+                        anchors.forEach((anchor) => {
+                            if (anchor.textContent.trim() === 'Ignore') {
+                                ignoreAnchor = `<li><a href="${anchor.href}">${anchor.textContent}</a></li>`;
+                              
+                            }
+                        });
+                      
+                        anchors.forEach((anchor) => {
+                        if (anchor.textContent.trim() === 'Trust:') {
+                              const trustSpan = anchor.nextElementSibling;
+        											const trustSpanContent = trustSpan ? trustSpan.innerHTML : 'No span found';	
+                              trustCount = `<li><a href="${anchor.href}">Trust: </a>${trustSpanContent}</li>`;
 
-                        // Extract "meritCount" (after the 5th <br>)
-                        const meritMatch = smallTextContent.split('<br>')[5]?.trim();
-                        var meritCount = meritMatch ? meritMatch.replace('Merit:', '').trim() : '';
+                          	}
+                      	});
+                      
+                      	anchors.forEach((anchor) => {
+                            if (anchor.textContent.trim() === 'Unignore') {
+                                unIgnoreAnchor = `<a href="${anchor.href}">${anchor.textContent}</a>`;
+                            }
+                        });
+                      
 
-                        // Extract "personalText" (after the 8th <br>)
-                        const personalTextMatch = smallTextContent.split('<br>')[8]?.trim();
-                        var personalText = personalTextMatch || '';
+                        // Extract "personalText"
+                      	var personalText = "";
+                        const personalTextCheck = smallTextContent.split('<br>')[8]?.trim();
+                      	if(personalTextCheck.includes('<img') && personalTextCheck.includes('Trust')){
+                        		personalText = smallTextContent.split('<br>')[9]?.trim();
+                        }
+                        else{
+                            personalText = smallTextContent.split('<br>')[8]?.trim();
+
+                        }
                       	
                       
                       	if (smallTextElement) {
                             const avatarImg = smallTextElement.querySelector('img.avatar');
                           	var avatar = "";
+                          	var avatarDropdown = "";
 			
                             if (avatarImg) {
                                 const imgSrc = avatarImg.src;
                       					var avatar = imgSrc ? `<img src="${imgSrc}" class="avatar" alt="avatar">` : '';
-                      					var avatarDropdown = imgSrc ? `<img width="120" src="${imgSrc}" class="avatar" alt="avatar">` : '';
+                      					var avatarDropdown = imgSrc ? `<hr class="dropdown-divider"><div class="useravatar-dropdown mt-1"><img src="${imgSrc}" class="avatar" alt="avatar"></div>` : '';
                             } 
+                          
                         }
 
                     }
@@ -1437,9 +1515,11 @@
             // Extract data from the second td.td_headerandpost
             const secondTd = firstRow.querySelector('.td_headerandpost');
             if (secondTd) {
-                // Remove <img>
-                const images = secondTd.querySelectorAll('img');
-                images.forEach(img => img.remove());
+
+             // Remove <img>
+//                 const images = secondTd.querySelectorAll('img');
+//                 images.forEach(img => img.remove());
+              
               	const firstTd = secondTd.querySelector('td:first-child');
 
                 // Get the anchor and extract the userPostId and postMsgId
@@ -1482,32 +1562,28 @@
                     <div class="user-post-wrapper d-flex justify-content-between mb-3">
                         <div class="text-start">
                             <div class="dropdown">
-                              <button class="btn btn-white dropdown-toggle d-flex align-items-center" type="button" id="userProfileDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0; border: none;">
-                                   <span class="post-username fw-bolder">${usernameElement.innerText}</span> ${userOnlineStatus} <span> ${userOP}</span>
-                              </button>
-                              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userProfileDropdown">
-                                  <li class="d-flex align-items-center">
-                                      <div class="post-username text-start">
-                                          <strong id="userpost_username"><a class="username fw-bolder" href="${usernameElement.href}"> ${usernameElement.innerText}</a> ${userOnlineStatus} ${userOP}
-                                          </strong>
-                                      </div>
-                                  </li>
-                                  <li>
-                                  	<div class="">
-                                    		<hr class="dropdown-divider">
-                                      	${avatarDropdown}
-                                        
-                                    </div>
-                                  </li>
-                                  <li><hr class="dropdown-divider">Activity: ${activityCount}</li>
-                                  <li><hr class="dropdown-divider">Merit: ${meritCount}</li>
-                              </ul>
+                                <button class="btn btn-white dropdown-toggle d-flex align-items-center" type="button" id="userProfileDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0; border: none;">
+                                     <span class="post-username fw-bolder">${userOnlineStatus} ${usernameElement.innerText}</span>  <span> ${userOP}</span>
+                              	</button>
+                              	<ul class="dropdown-menu dropdown-menu-end user-post-dropdown" aria-labelledby="userProfileDropdown">
+                                  	<li class="d-flex align-items-center">
+                                      	<div class="post-username text-start">
+                                          	<strong id="userpost_username">${userOnlineStatus} <a class="username fw-bolder" href="${usernameElement.href}"> ${usernameElement.innerText}</a> ${userOP}
+                                          	</strong>
+                                      	</div>
+                                  	</li>
+                                    ${avatarDropdown}
+                                    ${activityCount}
+                                    ${meritCount}
+                                    ${postCount}
+                                    ${trustCount}
+                                    ${ignoreAnchor}
+                                    
+                                </ul>
                           </div>
-                            <div class="user-position">${position}</div>
-                            <div class="useravatar mt-1">${avatar}</div>
-                            <div class="useravatar mt-1 font-sm">${personalText}</div>
-
-                            
+                          <div class="user-position">${position}</div>
+                          <div class="useravatar mt-1">${avatar}</div>
+                          <div class="useravatar mt-1 font-sm">${personalText}</div>
                         </div>
                         <div class="text-end">
                             <div id="user_post_action" class="uactionid_${postMsgId}">
@@ -1527,6 +1603,28 @@
 
                     postDiv.innerHTML = userPostWrapper + postDiv.innerHTML; // Append the existing post data
                 }
+              
+              
+              	// for ignored user's post           
+              	const isIgnored = secondTd.textContent.includes('This user is currently ignored.');
+                if (isIgnored) {
+                  console.log('this user is ignored')
+                  
+                  const userPostWrapper = secondTd.querySelector('.user-post-wrapper');
+                  if (userPostWrapper) {
+                      userPostWrapper.innerHTML = '';
+                      const ignoreUserPostDiv = document.createElement('div');
+                      ignoreUserPostDiv.className = 'ignore-user-post';
+                      ignoreUserPostDiv.innerHTML  = `<span>This user <a class="username fw-bolder" href="${usernameElement.href}"> ${usernameElement.innerText}</a> is currently ignored. ${unIgnoreAnchor}</span>`;
+                      userPostWrapper.appendChild(ignoreUserPostDiv);
+                      console.log('Replaced content inside .user-post-wrapper with .ignore-user-post div.');
+                  } 
+                  else {
+                      console.log('No .user-post-wrapper found inside .td_headerandpost.');
+                  }
+                    
+                }
+              	
             }
 
             const secondRow = innerRows[1];
@@ -1565,12 +1663,12 @@
        if (targetTd) {
           const anchors = targetTd.querySelectorAll("a");
           const dropdownContainer = document.createElement("div");
-          dropdownContainer.className = "dropdown-container"; 
+          dropdownContainer.className = "dropdown-container"; // Add a class for styling
 
           // Create a button to toggle the dropdown
           const toggleButton = document.createElement("button");
           toggleButton.textContent = "User Actions";
-          toggleButton.className = "dropdown-toggle"; 
+          toggleButton.className = "dropdown-toggle"; // Add a class for styling
           dropdownContainer.appendChild(toggleButton);
         	toggleButton.classList.add('btn')
         	toggleButton.classList.add('btn-light');
@@ -1579,25 +1677,37 @@
 
           // Create the dropdown menu
           const dropdownMenu = document.createElement("div");
-          dropdownMenu.className = "dropdown-menu";
-          dropdownMenu.style.display = "none"; 
+          dropdownMenu.className = "dropdown-menu"; // Add a class for styling
+          dropdownMenu.style.display = "none"; // Initially hide the dropdown
 
+          // Loop through the anchor tags and add them as items in the dropdown menu
           anchors.forEach(anchor => {
               const menuItem = document.createElement("div");
-              menuItem.className = "dropdown-item"; 
+              menuItem.className = "dropdown-item"; // Add a class for styling
+
+              // Clone the anchor and preserve all of its attributes
               const link = document.createElement("a");
         			link.classList.add('text-capitalize')
-              link.href = anchor.href; 
-              link.textContent = anchor.textContent; 
+              link.href = anchor.href; // Ensure the href attribute is copied
+              link.textContent = anchor.textContent; // Copy the text content of the anchor
+
+              // Copy all attributes of the anchor
               for (const attr of anchor.attributes) {
                   link.setAttribute(attr.name, attr.value);
               }
+
               menuItem.appendChild(link);
               dropdownMenu.appendChild(menuItem);
           });
+
+          // Append the dropdown menu to the container
           dropdownContainer.appendChild(dropdownMenu);
+
+          // Clear all existing content inside the td
           targetTd.innerHTML = "";
-          targetTd.appendChild(dropdownContainer); 
+          targetTd.appendChild(dropdownContainer); // Re-add the dropdown container after clearing content
+
+          // Add functionality to toggle the dropdown menu visibility
           toggleButton.addEventListener("click", () => {
               dropdownMenu.style.display = dropdownMenu.style.display === "none" ? "block" : "none";
           });
@@ -1627,5 +1737,28 @@
       }
       
     } // Topic/user posts page end if
+  
+  
+  	const verticalTable = document.querySelectorAll('.vertical-table');
+  	if(verticalTable.length > 0){
+      const tblIndex = verticalTable.length - 1;
+  		verticalTable[tblIndex].style.display = "table";
+    }
+  	
+    
+  	const upshrinkHeaderICTable = document.querySelectorAll('#upshrinkHeaderIC.bordercolor');
+  	if(upshrinkHeaderICTable.length > 0){
+    	const tblIndex2 = upshrinkHeaderICTable.length - 1;
+  		upshrinkHeaderICTable[tblIndex2].style.display = "table";
+    }
+  
+  	const tborderTbl = document.querySelector("table.tborder");
+    if(tborderTbl){
+        tborderTbl.style.display = "table"; 
+    }
+  	const bordercColorTbl  = document.querySelector("table.bordercolor ");
+    if(bordercColorTbl){
+        bordercColorTbl.style.display = "table"; 
+    }
   
 })();
