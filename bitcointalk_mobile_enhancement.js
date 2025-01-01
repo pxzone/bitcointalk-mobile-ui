@@ -2054,7 +2054,7 @@
             }
             
         `);
-        document.addEventListener('DOMContentLoaded', function () {
+        // document.addEventListener('DOMContentLoaded', function () {
             // Select the table and the rows with class 'windowbg2'
             const table = document.querySelector('.bordercolor');
             const rows = table.querySelectorAll('tr.windowbg2');
@@ -2126,7 +2126,7 @@
         
             // Remove the content from the 'bordercolor' table
             table.innerHTML = '';
-        });
+        // });
     }
     
   	const verticalTable = document.querySelectorAll('.vertical-table');
@@ -2150,5 +2150,4 @@
     if(bordercColorTbl){
         bordercColorTbl.style.display = "table"; 
     }
-  
 })();
