@@ -339,112 +339,107 @@
     });
 
     // NAVBAR
-    document.addEventListener('DOMContentLoaded', () => {
-        const navbar = document.createElement('nav');
-        navbar.className = 'navbar navbar-light bg-white';
-        navbar.style.height = '40px';
-        navbar.style.padding = '2px 15px';
-        navbar.style.borderBottom = '1px solid #ddd';
+    const navbar = document.createElement('nav');
+    navbar.className = 'navbar navbar-light bg-white';
+    navbar.style.height = '40px';
+    navbar.style.padding = '2px 15px';
+    navbar.style.borderBottom = '1px solid #ddd';
 
-        navbar.innerHTML = `
-            <div class="container-fluid d-flex align-items-center justify-content-end btt-navbar" style="height: 100%;">
-                <!-- Left side placeholder -->
-                <div class="navbar-brand d-none"></div>
+    navbar.innerHTML = `
+        <div class="container-fluid d-flex align-items-center justify-content-end btt-navbar" style="height: 100%;">
+            <!-- Left side placeholder -->
+            <div class="navbar-brand d-none"></div>
 
-                <!-- Right side icons -->
-                <div class=" d-flex align-items-center">
-                    <!-- Message Icon -->
-                    <a href="https://bitcointalk.org/index.php?action=pm" class="text-dark me-3" title="Messages">
-                        <i class="bi bi-chat-dots" style="color: #6096C5; font-size: 1.9rem;"></i>
-                    </a>
+            <!-- Right side icons -->
+            <div class=" d-flex align-items-center">
+                <!-- Message Icon -->
+                <a href="https://bitcointalk.org/index.php?action=pm" class="text-dark me-3" title="Messages">
+                    <i class="bi bi-chat-dots" style="color: #6096C5; font-size: 1.9rem;"></i>
+                </a>
 
-                    <!-- Profile Dropdown -->
-                    <div class="dropdown">
-                        <button class="btn btn-white dropdown-toggle d-flex align-items-center" 
-                                type="button" id="profileDropdown" data-bs-toggle="dropdown" 
-                                aria-expanded="false" style="padding: 0; border: none;">
-                            <i class="bi bi-person" style="color: #6096C5; font-size: 2rem; margin-right: 5px;"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                            <h3>Profile Info</h3>
-                            <li class="d-flex align-items-center px-3 py-2">
-                                <img width="120" src="`+avatarSrc+`" class="me-2" alt="Avatar">
-                                <div class="username">
-                                    <strong id="username">`+username+`</strong>
-                                </div>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=profile;u=`+uid+`;">Profile</a></li>
-                            <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=profile;u=`+uid+`;sa=showPosts">Posts</a></li>
-                            <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=profile;threads;u=`+uid+`;sa=showPosts">Topics</a></li>
-                            <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=drafts">Drafts</a></li>
-                            <li><a class="dropdown-item text-danger" href="${logout}">Logout</a></li>
-                        </ul>
-                    </div>
+                <!-- Profile Dropdown -->
+                <div class="dropdown">
+                    <button class="btn btn-white dropdown-toggle d-flex align-items-center" 
+                            type="button" id="profileDropdown" data-bs-toggle="dropdown" 
+                            aria-expanded="false" style="padding: 0; border: none;">
+                        <i class="bi bi-person" style="color: #6096C5; font-size: 2rem; margin-right: 5px;"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                        <h3>Profile Info</h3>
+                        <li class="d-flex align-items-center px-3 py-2">
+                            <img width="120" src="`+avatarSrc+`" class="me-2" alt="Avatar">
+                            <div class="username">
+                                <strong id="username">`+username+`</strong>
+                            </div>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=profile;u=`+uid+`;sa=showPosts">Posts</a></li>
+                        <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=profile;threads;u=`+uid+`;sa=showPosts">Topics</a></li>
+                        <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=drafts">Drafts</a></li>
+                        <li><a class="dropdown-item text-danger" href="${logout}">Logout</a></li>
+                    </ul>
                 </div>
             </div>
+        </div>
+    `;
+    document.body.insertBefore(navbar, document.body.firstChild);
+
+    // SMF HEADER
+    const smfHeaderElement = document.getElementById('smfheader');
+    if (smfHeaderElement) {
+        smfHeaderElement.innerHTML = '';
+
+        // Create a new <div> element with sample HTML content
+        const smfHeaderDiv = document.createElement('div');
+        smfHeaderDiv.innerHTML = `
+            <div><h1 class="mt-2">Bitcoin Forum</h1></div>
+            <div class="mb-2">
+                <img src="https://bitcointalk.org/Themes/custom1/images/smflogo.gif" style="margin: 2px;" alt="smf forum logo" width="80%">
+            </div>
+            
         `;
-        document.body.insertBefore(navbar, document.body.firstChild);
+        // Append the new <div> to the #smfheader element
+        smfHeaderElement.appendChild(smfHeaderDiv);
+    } 
+    const tables = document.querySelectorAll('table');
+    //
+    if (tables.length >= 2) {
+        const secondTable = tables[1];
+        const headerSecondTable = document.createElement('div');
+        headerSecondTable.innerHTML = `
+            <div id="news_area" class="news-area mt-1"></div>
+            <div class="hr"></div>
+            <ul class="header-recent-posts">
+                <li><a href="https://bitcointalk.org/index.php?action=unread">Unread posts since last visit.</a></li>
+                <li><a href="https://bitcointalk.org/index.php?action=unreadreplies">New replies to your posts.</a></li>
+            </ul>
+            <div class="hr"></div>
+        `;
+        secondTable.parentNode.replaceChild(headerSecondTable, secondTable);
+    } 
 
-        // SMF HEADER
-        const smfHeaderElement = document.getElementById('smfheader');
-        if (smfHeaderElement) {
-            smfHeaderElement.innerHTML = '';
-
-            // Create a new <div> element with sample HTML content
-            const smfHeaderDiv = document.createElement('div');
-            smfHeaderDiv.innerHTML = `
-                <div><h1 class="mt-2">Bitcoin Forum</h1></div>
-                <div class="mb-2">
-                    <img src="https://bitcointalk.org/Themes/custom1/images/smflogo.gif" style="margin: 2px;" alt="smf forum logo" width="80%">
-                </div>
-                
-            `;
-            // Append the new <div> to the #smfheader element
-            smfHeaderElement.appendChild(smfHeaderDiv);
-        } 
-        const tables = document.querySelectorAll('table');
-        //
-        if (tables.length >= 2) {
-            const secondTable = tables[1];
-            const headerSecondTable = document.createElement('div');
-            headerSecondTable.innerHTML = `
-                <div id="news_area" class="news-area mt-1"></div>
-                <div class="hr"></div>
-                <ul class="header-recent-posts">
-                    <li><a href="https://bitcointalk.org/index.php?action=unread">Unread posts since last visit.</a></li>
-                    <li><a href="https://bitcointalk.org/index.php?action=unreadreplies">New replies to your posts.</a></li>
-                </ul>
-                <div class="hr"></div>
-            `;
-            secondTable.parentNode.replaceChild(headerSecondTable, secondTable);
-        } 
-
-        
-        // NEWS AREA
-        const newsTargetElement = document.querySelector('#upshrinkHeader2 td[width="90%"].titlebg2');
-        if (newsTargetElement) {
-            // Get the full HTML content of the matched <td> element
-            const newsHtmlContent = newsTargetElement.innerHTML;
-            const newsArea = document.getElementById('news_area'); 
-            if (newsArea) {
-                // Create a new <div> element
-                const newsAreaDiv = document.createElement('div');
-                newsAreaDiv.innerHTML = newsHtmlContent;
-                newsArea.appendChild(newsAreaDiv);
-            }
+    
+     // NEWS AREA
+     const newsTargetElement = document.querySelector('#upshrinkHeader2 td[width="90%"].titlebg2');
+     if (newsTargetElement) {
+         // Get the full HTML content of the matched <td> element
+         const newsHtmlContent = newsTargetElement.innerHTML;
+         const newsArea = document.getElementById('news_area'); 
+         if (newsArea) {
+            // Create a new <div> element
+            const newsAreaDiv = document.createElement('div');
+            newsAreaDiv.innerHTML = newsHtmlContent;
+            newsArea.appendChild(newsAreaDiv);
         }
-        // remove default menu header
-        if (tables.length >= 4) {
-            const fourthTable = tables[4];
-            fourthTable.parentNode.removeChild(fourthTable);
-        } 
-    
-    });
-    
+     }
 
     // FORUM'S MENU
-   
+    // remove default menu header
+    if (tables.length >= 4) {
+        const fourthTable = tables[4];
+        fourthTable.parentNode.removeChild(fourthTable);
+    } 
+    
     const upshrinkHeaderElement = document.getElementById('upshrinkHeader2');
     if (upshrinkHeaderElement) {
         
@@ -2053,7 +2048,7 @@
                 border-radius: .2rem;
                 padding: 20px;
             }
-            #modify-profile button {
+             #modify-profile button {
                 font-size: 1em;
             }
             #profile-info button {
