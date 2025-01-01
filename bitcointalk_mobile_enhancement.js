@@ -16,6 +16,7 @@
     const avatarSrc = avatarImage.getAttribute('src');
     const uidMatch = avatarSrc.match(/(\d+)/); 
     const helloElement = document.getElementById('hellomember');
+    var username;
 
     if (uidMatch) {
         var uid = uidMatch[1]; // The first match group will contain the number
@@ -43,7 +44,7 @@
     const bootstrapJS = document.createElement('script');
     bootstrapJS.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js';
     document.body.appendChild(bootstrapJS);
-
+    
     const bootstrapIcons = document.createElement('link');
     bootstrapIcons.rel = 'stylesheet';
     bootstrapIcons.href = 'https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css';
@@ -96,7 +97,6 @@
 
         /* Dropdown menu styles */
         #upshrinkHeader2 .dropdown-menu {
-            display: none;
             top: 1%;
             width: 100%;
             background-color: #fff;
@@ -107,7 +107,6 @@
         #upshrinkHeader2 .hamburger-btn {
             font-weight: 600;
             font-size: 1.4rem;
-//             color: #6096C5;
         }
 
         #upshrinkHeader2 .dropdown-menu {
@@ -306,11 +305,9 @@
             padding: 10px;
             color: #fff;
         }
-        .tborder {
-        		margin-top: 1rem;
-        }
         
-				.bi{
+        
+		.bi{
         	font-size: 1.7rem;
         }
         .main-menu-ul li a{
@@ -330,110 +327,127 @@
       
   	
 
-    
+    var logout;
+    const mainTabElements = document.querySelectorAll('td.maintab_back[valign="top"]');
+    mainTabElements.forEach(td => {
+        const mainTabAnchorElements = td.querySelectorAll('a');
+        mainTabAnchorElements.forEach(anchor => {
+            if (anchor.href.includes('action=logout')) {
+                logout = anchor.href;
+            }
+        });
+    });
+
     // NAVBAR
-    const navbar = document.createElement('nav');
-    navbar.className = 'navbar navbar-light bg-white';
-    navbar.style.height = '40px';
-    navbar.style.padding = '2px 15px';
-    navbar.style.borderBottom = '1px solid #ddd';
+    document.addEventListener('DOMContentLoaded', () => {
+        const navbar = document.createElement('nav');
+        navbar.className = 'navbar navbar-light bg-white';
+        navbar.style.height = '40px';
+        navbar.style.padding = '2px 15px';
+        navbar.style.borderBottom = '1px solid #ddd';
 
-    navbar.innerHTML = `
-        <div class="container-fluid d-flex align-items-center justify-content-end btt-navbar" style="height: 100%;">
-            <!-- Left side placeholder -->
-            <div class="navbar-brand d-none"></div>
+        navbar.innerHTML = `
+            <div class="container-fluid d-flex align-items-center justify-content-end btt-navbar" style="height: 100%;">
+                <!-- Left side placeholder -->
+                <div class="navbar-brand d-none"></div>
 
-            <!-- Right side icons -->
-            <div class=" d-flex align-items-center">
-                <!-- Message Icon -->
-                <a href="https://bitcointalk.org/index.php?action=pm" class="text-dark me-3" title="Messages">
-                    <i class="bi bi-chat-dots" style="color: #6096C5; font-size: 1.9rem;"></i>
-                </a>
+                <!-- Right side icons -->
+                <div class=" d-flex align-items-center">
+                    <!-- Message Icon -->
+                    <a href="https://bitcointalk.org/index.php?action=pm" class="text-dark me-3" title="Messages">
+                        <i class="bi bi-chat-dots" style="color: #6096C5; font-size: 1.9rem;"></i>
+                    </a>
 
-                <!-- Profile Dropdown -->
-                <div class="dropdown">
-                    <button class="btn btn-white dropdown-toggle d-flex align-items-center" 
-                            type="button" id="profileDropdown" data-bs-toggle="dropdown" 
-                            aria-expanded="false" style="padding: 0; border: none;">
-                        <i class="bi bi-person" style="color: #6096C5; font-size: 2rem; margin-right: 5px;"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                        <h3>Profile Info</h3>
-                        <li class="d-flex align-items-center px-3 py-2">
-                            <img width="120" src="`+avatarSrc+`" class="me-2" alt="Avatar">
-                            <div class="username">
-                                <strong id="username">`+username+`</strong>
-                            </div>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=profile;u=`+uid+`;sa=showPosts">Posts</a></li>
-                        <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=profile;threads;u=`+uid+`;sa=showPosts">Topics</a></li>
-                        <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=drafts">Drafts</a></li>
-                        <li><a class="dropdown-item text-danger" href="https://bitcointalk.org/index.php?action=logout;">Logout</a></li>
-                    </ul>
+                    <!-- Profile Dropdown -->
+                    <div class="dropdown">
+                        <button class="btn btn-white dropdown-toggle d-flex align-items-center" 
+                                type="button" id="profileDropdown" data-bs-toggle="dropdown" 
+                                aria-expanded="false" style="padding: 0; border: none;">
+                            <i class="bi bi-person" style="color: #6096C5; font-size: 2rem; margin-right: 5px;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <h3>Profile Info</h3>
+                            <li class="d-flex align-items-center px-3 py-2">
+                                <img width="120" src="`+avatarSrc+`" class="me-2" alt="Avatar">
+                                <div class="username">
+                                    <strong id="username">`+username+`</strong>
+                                </div>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=profile;u=`+uid+`;">Profile</a></li>
+                            <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=profile;u=`+uid+`;sa=showPosts">Posts</a></li>
+                            <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=profile;threads;u=`+uid+`;sa=showPosts">Topics</a></li>
+                            <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=drafts">Drafts</a></li>
+                            <li><a class="dropdown-item text-danger" href="${logout}">Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    `;
-    document.body.insertBefore(navbar, document.body.firstChild);
-
-    // SMF HEADER
-    const smfHeaderElement = document.getElementById('smfheader');
-    if (smfHeaderElement) {
-        smfHeaderElement.innerHTML = '';
-
-        // Create a new <div> element with sample HTML content
-        const smfHeaderDiv = document.createElement('div');
-        smfHeaderDiv.innerHTML = `
-            <div><h1 class="mt-2">Bitcoin Forum</h1></div>
-            <div class="mb-2">
-                <img src="https://bitcointalk.org/Themes/custom1/images/smflogo.gif" style="margin: 2px;" alt="smf forum logo" width="80%">
-            </div>
-            
         `;
-        // Append the new <div> to the #smfheader element
-        smfHeaderElement.appendChild(smfHeaderDiv);
-    } 
-    const tables = document.querySelectorAll('table');
-    //
-    if (tables.length >= 2) {
-        const secondTable = tables[1];
-        const headerSecondTable = document.createElement('div');
-        headerSecondTable.innerHTML = `
-            <div id="news_area" class="news-area mt-1"></div>
-            <div class="hr"></div>
-            <ul class="header-recent-posts">
-                <li><a href="https://bitcointalk.org/index.php?action=unread">Unread posts since last visit.</a></li>
-                <li><a href="https://bitcointalk.org/index.php?action=unreadreplies">New replies to your posts.</a></li>
-            </ul>
-            <div class="hr"></div>
-        `;
-        secondTable.parentNode.replaceChild(headerSecondTable, secondTable);
-    } 
+        document.body.insertBefore(navbar, document.body.firstChild);
 
-    
-     // NEWS AREA
-     const newsTargetElement = document.querySelector('#upshrinkHeader2 td[width="90%"].titlebg2');
-     if (newsTargetElement) {
-         // Get the full HTML content of the matched <td> element
-         const newsHtmlContent = newsTargetElement.innerHTML;
-         const newsArea = document.getElementById('news_area'); 
-         if (newsArea) {
-            // Create a new <div> element
-            const newsAreaDiv = document.createElement('div');
-            newsAreaDiv.innerHTML = newsHtmlContent;
-            newsArea.appendChild(newsAreaDiv);
+        // SMF HEADER
+        const smfHeaderElement = document.getElementById('smfheader');
+        if (smfHeaderElement) {
+            smfHeaderElement.innerHTML = '';
+
+            // Create a new <div> element with sample HTML content
+            const smfHeaderDiv = document.createElement('div');
+            smfHeaderDiv.innerHTML = `
+                <div><h1 class="mt-2">Bitcoin Forum</h1></div>
+                <div class="mb-2">
+                    <img src="https://bitcointalk.org/Themes/custom1/images/smflogo.gif" style="margin: 2px;" alt="smf forum logo" width="80%">
+                </div>
+                
+            `;
+            // Append the new <div> to the #smfheader element
+            smfHeaderElement.appendChild(smfHeaderDiv);
+        } 
+        const tables = document.querySelectorAll('table');
+        //
+        if (tables.length >= 2) {
+            const secondTable = tables[1];
+            const headerSecondTable = document.createElement('div');
+            headerSecondTable.innerHTML = `
+                <div id="news_area" class="news-area mt-1"></div>
+                <div class="hr"></div>
+                <ul class="header-recent-posts">
+                    <li><a href="https://bitcointalk.org/index.php?action=unread">Unread posts since last visit.</a></li>
+                    <li><a href="https://bitcointalk.org/index.php?action=unreadreplies">New replies to your posts.</a></li>
+                </ul>
+                <div class="hr"></div>
+            `;
+            secondTable.parentNode.replaceChild(headerSecondTable, secondTable);
+        } 
+
+        
+        // NEWS AREA
+        const newsTargetElement = document.querySelector('#upshrinkHeader2 td[width="90%"].titlebg2');
+        if (newsTargetElement) {
+            // Get the full HTML content of the matched <td> element
+            const newsHtmlContent = newsTargetElement.innerHTML;
+            const newsArea = document.getElementById('news_area'); 
+            if (newsArea) {
+                // Create a new <div> element
+                const newsAreaDiv = document.createElement('div');
+                newsAreaDiv.innerHTML = newsHtmlContent;
+                newsArea.appendChild(newsAreaDiv);
+            }
         }
-     }
+        // remove default menu header
+        if (tables.length >= 4) {
+            const fourthTable = tables[4];
+            fourthTable.parentNode.removeChild(fourthTable);
+        } 
+    
+    });
+    
 
     // FORUM'S MENU
-    // remove default menu header
-    if (tables.length >= 4) {
-        const fourthTable = tables[4];
-        fourthTable.parentNode.removeChild(fourthTable);
-    } 
+   
     const upshrinkHeaderElement = document.getElementById('upshrinkHeader2');
     if (upshrinkHeaderElement) {
+        
         upshrinkHeaderElement.innerHTML = '';
 
         const menuDiv = document.createElement('div');
@@ -448,7 +462,7 @@
         dropdownMenu.style.display = 'none'; 
 
         dropdownMenu.innerHTML = `
-            <h2>Main Menu</h2>
+            <h2 class="text-default">Main Menu</h2>
             <ul class="main-menu-ul">
                 <li><a href="https://bitcointalk.org/index.php"><i class="bi bi-house"></i> Home</a></li>
                 <li><a href="https://bitcointalk.org/index.php?action=help"><i class="bi bi-info-circle"></i> Help</a></li>
@@ -456,7 +470,7 @@
                 <li><a href="https://bitcointalk.org/index.php?action=profile"><i class="bi bi-person"></i> Profile</a></li>
                 <li><a href="https://bitcointalk.org/index.php?action=mlist"><i class="bi bi-people"></i> Members</a></li>
                 <li><a href="https://bitcointalk.org/more.php"><i class="bi bi-three-dots"></i> More</a></li>
-                <li><a href="https://bitcointalk.org/index.php?action=logout"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                <li><a href="${logout}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
             </ul>
             <button class="close-btn"><i class="bi bi-x-square"></i></button>
         `;
@@ -1413,12 +1427,23 @@
             // Extract data from the first tr
             const firstRow = innerRows[0];
             if (firstRow) {
-                const posterInfoTd = firstRow.querySelector('.poster_info');
+                var posterInfoTd = firstRow.querySelector('.poster_info');
+                // var posterInfoElements = document.getElementsByClassName('poster_info');
+                // // Initialize a variable to store all the HTML content
+                // var allPosterInfoHTML = '';
+                // // Loop through each "poster_info" element
+                // for (let i = 0; i < posterInfoTd.length; i++) {
+                //     const posterInfo = posterInfoElements[i];
+                //     const posterInfoHTML = posterInfo.innerHTML;
+                //     allPosterInfoHTML += posterInfoHTML;
+                // }
+                
+
                 if (posterInfoTd) {
                     var usernameElement = posterInfoTd.querySelector('b a');
                     var spanElement = posterInfoTd.querySelector('span');
                   	var userOP = spanElement.outerText == '(OP)' ? spanElement.outerHTML : '';
-                   	var userOnlineStatus = spanElement.outerText == ' Online' ? '<li><img src="https://bitcointalk.org/Themes/custom1/images/useron.gif" alt="Online" border="0" style="margin-top: -4px; margin-left: 2px;"></li>' : '';
+                   	var userOnlineStatus = spanElement.outerText == ' Online' ? '<img src="https://bitcointalk.org/Themes/custom1/images/useron.gif" alt="Online" border="0" style="margin-top: -4px; margin-left: 2px;">' : '';
                   	
                   	const userHref = usernameElement.href;
                     const userHrefMatch = userHref.match(/u=(\d+)/);
@@ -1437,7 +1462,7 @@
                             }
                         }
                       
-												var meritCount = "";
+						var meritCount = "";
                         if (smallTextElement.innerHTML.includes('Merit:')) {
                             const match = smallTextElement.innerHTML.match(/Merit:\s*\d+/);
                             if (match) {
@@ -1477,21 +1502,55 @@
                       
                       	anchors.forEach((anchor) => {
                             if (anchor.textContent.trim() === 'Unignore') {
-                                unIgnoreAnchor = `<a href="${anchor.href}">${anchor.textContent}</a>`;
+                                unIgnoreAnchor = `<li><a href="${anchor.href}">${anchor.textContent}</a></li>`;
                             }
                         });
                       
 
                         // Extract "personalText"
-                      	var personalText = "";
-                        const personalTextCheck = smallTextContent.split('<br>')[8]?.trim();
-                      	if(personalTextCheck.includes('<img') && personalTextCheck.includes('Trust')){
-                        		personalText = smallTextContent.split('<br>')[9]?.trim();
+                        var badgeImg = smallTextElement.querySelector('img.badgeimg');
+                        var personalText = "";
+                        if(usernameElement.innerText == username){
+                            const personalTextCheck = smallTextContent.split('<br>')[9]?.trim();
+                              if(personalTextCheck.includes('<img') && personalTextCheck.includes('Trust')){
+                                    personalText = smallTextContent.split('<br>')[10]?.trim();
+                            }
+                            else{
+                                personalText = smallTextContent.split('<br>')[9]?.trim();
+    
+                            }
+                        }
+                        else if(position == 'Copper Member' || position == 'Global Moderator' || position == 'Staff' || position == 'Administrator' || position == 'Ninja') {
+                            const personalTextCheck = smallTextContent.split('<br>')[9]?.trim();
+                            if(personalTextCheck.includes('<img') && personalTextCheck.includes('Trust')){
+                                    personalText = smallTextContent.split('<br>')[10]?.trim();
+                            }
+                            else{
+                                personalText = smallTextContent.split('<br>')[9]?.trim();
+
+                            }
+                        }
+                        else if(badgeImg) {
+                            const personalTextCheck = smallTextContent.split('<br>')[9]?.trim();
+                            if(personalTextCheck.includes('<img') && personalTextCheck.includes('Trust')){
+                                    personalText = smallTextContent.split('<br>')[10]?.trim();
+                            }
+                            else{
+                                personalText = smallTextContent.split('<br>')[9]?.trim();
+
+                            }
                         }
                         else{
-                            personalText = smallTextContent.split('<br>')[8]?.trim();
+                            const personalTextCheck = smallTextContent.split('<br>')[8]?.trim();
+                            if(personalTextCheck.includes('<img') && personalTextCheck.includes('Trust')){
+                                    personalText = smallTextContent.split('<br>')[9]?.trim();
+                            }
+                            else{
+                                personalText = smallTextContent.split('<br>')[8]?.trim();
 
+                            }
                         }
+                      	
                       	
                       
                       	if (smallTextElement) {
@@ -1501,8 +1560,8 @@
 			
                             if (avatarImg) {
                                 const imgSrc = avatarImg.src;
-                      					var avatar = imgSrc ? `<img src="${imgSrc}" class="avatar" alt="avatar">` : '';
-                      					var avatarDropdown = imgSrc ? `<hr class="dropdown-divider"><div class="useravatar-dropdown mt-1"><img src="${imgSrc}" class="avatar" alt="avatar"></div>` : '';
+                      			var avatar = imgSrc ? `<img src="${imgSrc}" class="avatar3" alt="avatar">` : '';
+                      			var avatarDropdown = imgSrc ? `<li><hr class="dropdown-divider"/><div class="useravatar-dropdown mt-1"><img src="${imgSrc}" class="avatar" alt="avatar"/></div></li>` : '';
                             } 
                           
                         }
@@ -1533,14 +1592,23 @@
 
             // Extract data from the third td
             if (secondTd) {
-            		const thirdTd = secondTd.querySelector('td:nth-of-type(2)');;
-                var anchors = thirdTd.querySelectorAll('a');
-                var quoteMsg = anchors[0] ? anchors[0].href : '';
-                var meritPost = anchors[1] ? anchors[1].href : '';
-                var msgNum = anchors[2].innerText.substr(1) - 1;
-              	thirdTd.remove();
+                if(usernameElement.innerText == username){
+                    const thirdTd = secondTd.querySelector('td:nth-of-type(2)');;
+                    var anchors = thirdTd.querySelectorAll('a');
+                    var quoteMsg = anchors[0] ? anchors[0].href : '';
+                    var editPost = anchors[1] ? anchors[1].href : '';
+                    var deletePost = anchors[2] ? anchors[2].href : '';
+                }
+            	else{
+                    const thirdTd = secondTd.querySelector('td:nth-of-type(2)');;
+                    var anchors = thirdTd.querySelectorAll('a');
+                    var quoteMsg = anchors[0] ? anchors[0].href : '';
+                    var meritPost = anchors[1] ? anchors[1].href : '';
+                    var msgNum = anchors[2].innerText.substr(1) - 1;
+                    thirdTd.remove();
+                }
             }
-          
+            
           	const modifiedTDs = document.querySelectorAll('td[id*="modified_"]');
             modifiedTDs.forEach(td => {
               const nextTd = td.nextElementSibling;
@@ -1552,9 +1620,27 @@
           
           	const thread_url = window.location.href;
             const topicData = thread_url.split('topic=');
-            const topicId = topicData[1].split('.msg')
+            const topicId = topicData[1].split('.msg');
 
-          
+            var deleteAnchor = "";
+            var editAnchor = "";
+            var quoteMsgAnchor = `<a class="btn" href="${quoteMsg}">Quote</a>`;
+            var meritAnchor = "";
+            var reportAnchor = "";
+
+            if(usernameElement.innerText == username){
+                editAnchor = `<a class="btn" href="${editPost}">Edit</a>`;
+                deleteAnchor = `<a onclick="return confirm('Remove this message?');" class="btn" href="${deletePost}">Delete</a>`;
+            }
+            else{
+                editAnchor = "";
+                deleteAnchor = "";
+                meritAnchor = `<a class="btn" href="${meritPost}">Merit</a>`;
+                reportAnchor = `<a class="btn" href="https://bitcointalk.org/index.php?action=reporttm;topic=${topicId}.${msgNum};msg=${postMsgId}">Report</a>`;
+            }
+            
+
+
             if (secondTd) {
                 const postDiv = secondTd.querySelector('.post');
                 if (postDiv) {
@@ -1565,8 +1651,9 @@
                                 <button class="btn btn-white dropdown-toggle d-flex align-items-center" type="button" id="userProfileDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0; border: none;">
                                      <span class="post-username fw-bolder">${userOnlineStatus} ${usernameElement.innerText}</span>  <span> ${userOP}</span>
                               	</button>
+                                
                               	<ul class="dropdown-menu dropdown-menu-end user-post-dropdown" aria-labelledby="userProfileDropdown">
-                                  	<li class="d-flex align-items-center">
+                                    <li class="d-flex align-items-center">
                                       	<div class="post-username text-start">
                                           	<strong id="userpost_username">${userOnlineStatus} <a class="username fw-bolder" href="${usernameElement.href}"> ${usernameElement.innerText}</a> ${userOP}
                                           	</strong>
@@ -1578,21 +1665,21 @@
                                     ${postCount}
                                     ${trustCount}
                                     ${ignoreAnchor}
-                                    
                                 </ul>
                           </div>
                           <div class="user-position">${position}</div>
                           <div class="useravatar mt-1">${avatar}</div>
-                          <div class="useravatar mt-1 font-sm">${personalText}</div>
+                          <div class="mt-1 font-sm">${personalText}</div>
                         </div>
                         <div class="text-end">
                             <div id="user_post_action" class="uactionid_${postMsgId}">
                                 <div class="user-post-action">
                                     <div class="btn-group">
-                                        <a class="btn" href="${quoteMsg}">Quote</a>
-                                        <a class="btn" href="${meritPost}">Merit</a>
-                                        <a class="btn" href="https://bitcointalk.org/index.php?action=reporttm;topic=${topicId}.${msgNum};msg=${postMsgId}">Report</a>
-                                        
+                                        ${quoteMsgAnchor}
+                                        ${editAnchor}
+                                        ${deleteAnchor}
+                                        ${meritAnchor}
+                                        ${reportAnchor}
                                     </div>
                                 </div>
                             </div>
@@ -1603,7 +1690,7 @@
 
                     postDiv.innerHTML = userPostWrapper + postDiv.innerHTML; // Append the existing post data
                 }
-              
+            
               
               	// for ignored user's post           
               	const isIgnored = secondTd.textContent.includes('This user is currently ignored.');
@@ -1737,8 +1824,318 @@
       }
       
     } // Topic/user posts page end if
-  
-  
+    
+    // Creating post
+    var postUrl = "https://bitcointalk.org/index.php?action=post;"
+    if(window.location.href.includes(postUrl)){
+        const CreateEditPostPageStylesheet = (css) => {
+            const style = document.createElement('style');
+            style.type = 'text/css';
+            style.textContent = css;
+            document.head.appendChild(style);
+        };
+    
+        CreateEditPostPageStylesheet(`
+            tr.catbg td {
+                background: #6096C5 repeat-x !important;
+                border-top-right-radius: 10px;
+                border-top-left-radius: 10px;
+                border-bottom: none !important;
+                color: #fff;
+            }
+            .btn-primary {
+                background-color: #6096C5;
+                color: #fff;
+                border-color: #6096C5;
+            }
+            .windowbg2 {
+            		
+            }
+            .post{
+                overflow-x: hidden;
+                word-wrap: break-word;
+                white-space: normal;
+                font-size: 1.05rem !important;
+                font-weight: 400;
+                border-radius: 20px;
+                background: #fff;
+                padding: 15px 15px 25px 15px;
+                position: relative;
+                box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.05);
+                -webkit-box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.05);
+                -moz-box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.05);     
+                line-height: 2em;
+           }
+           .post .quoteheader {
+              font-size: .9rem !important;
+            }
+        `);
+
+        const postmodifyForm = document.getElementById('postmodify');
+        if (postmodifyForm) {
+            // Select input elements with the name within the form
+            const iconImage = document.querySelector('img[name="icons"]');
+            const subjectInput = postmodifyForm.elements['subject'];
+            const iconInput = postmodifyForm.elements['icon'];
+            const messageInput = postmodifyForm.elements['message'];
+            const postInput = postmodifyForm.elements['post'];
+            const previewInput = postmodifyForm.elements['preview'];
+
+            if (subjectInput) {
+                subjectInput.classList.add('form-control');
+            } 
+            if (iconInput) {
+                iconInput.classList.add('form-control');
+            }
+            if (messageInput) {
+                messageInput.classList.add('form-control');
+            } 
+            if (postInput) {
+                postInput.classList.add('btn');
+                postInput.classList.add('btn-primary');
+            } 
+            if (previewInput) {
+                previewInput.classList.add('btn');
+                previewInput.classList.add('btn-primary');
+            } 
+            iconImage.style.marginLeft = '5px';
+            iconImage.style.marginRight = '5px';
+            const windowbgTrElements = postmodifyForm.querySelectorAll('td.windowbg > table > tbody > tr');
+            if (windowbgTrElements.length >= 3) {
+                const thirdTr = windowbgTrElements[2];
+                const tdElements = thirdTr.getElementsByTagName('td');
+                if (thirdTr) {
+                    const secondTd = tdElements[1];
+                    secondTd.colSpan = 2;
+                    thirdTr.deleteCell(0);
+                }
+            }
+            if (windowbgTrElements.length >= 4) {
+                const forthTr = windowbgTrElements[3];
+                const tdElements = forthTr.getElementsByTagName('td');
+                if (forthTr) {
+                    const secondTd = tdElements[1];
+                    secondTd.colSpan = 2;
+                    forthTr.deleteCell(0);
+                }
+            }
+            if (windowbgTrElements.length >= 5) {
+                const fifthTr = windowbgTrElements[4];
+                const tdElements = fifthTr.getElementsByTagName('td');
+                if (fifthTr) {
+                    const secondTd = tdElements[1];
+                    secondTd.colSpan = 2;
+                    fifthTr.deleteCell(0);
+                }
+            }
+
+            if (windowbgTrElements.length >= 6) {
+                const sixthTr = windowbgTrElements[5];
+                const tdElements = sixthTr.getElementsByTagName('td');
+                if (sixthTr) {
+                    const secondTd = tdElements[1];
+                    secondTd.colSpan = 2;
+                    sixthTr.deleteCell(0);
+                }
+            }
+            if (windowbgTrElements.length >= 7) {
+                const seventhTr = windowbgTrElements[6];
+                const tdElements = seventhTr.getElementsByTagName('td');
+                if (seventhTr) {
+                    const secondTd = tdElements[1];
+                    secondTd.colSpan = 2;
+                    seventhTr.deleteCell(0);
+                }
+            }
+            if (windowbgTrElements.length >= 8) {
+                const eiththTr = windowbgTrElements[7];
+                const firstCell = eiththTr.querySelector('td:first-child');
+                const boldElement = firstCell.querySelector('b');
+                if(boldElement){
+                    boldElement.style.marginLeft = '-40px';
+                }
+            }
+            if (windowbgTrElements.length >= 9) {
+                const ninthTr = windowbgTrElements[8];
+                const firstCell = ninthTr.querySelector('td:first-child');
+                firstCell.style.paddingLeft = '0ex';
+            }
+        } 
+ 
+    }
+    var userProfileUrl = "https://bitcointalk.org/index.php?action=profile;u="
+    if(window.location.href.includes(userProfileUrl)){
+        const UserProfilePageStylesheet = (css) => {
+            const style = document.createElement('style');
+            style.type = 'text/css';
+            style.textContent = css;
+            document.head.appendChild(style);
+        };
+    
+        UserProfilePageStylesheet(`
+            tr.catbg td {
+                background: #6096C5 repeat-x !important;
+                border-top-right-radius: 10px;
+                border-top-left-radius: 10px;
+                border-bottom: none !important;
+                color: #fff;
+            }
+            .catbg3 td{
+                background: #6096C5 repeat-x !important;
+                border-top-right-radius: 10px;
+                border-top-left-radius: 10px;
+                border-bottom: none !important;
+                color: #fff;
+            }
+            .btn-primary {
+                background-color: #6096C5;
+                color: #fff;
+                border-color: #6096C5;
+            }
+            .windowbg2 {
+            		
+            }
+            .post{
+                overflow-x: hidden;
+                word-wrap: break-word;
+                white-space: normal;
+                font-size: 1.05rem !important;
+                font-weight: 400;
+                border-radius: 20px;
+                background: #fff;
+                padding: 15px 15px 25px 15px;
+                position: relative;
+                box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.05);
+                -webkit-box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.05);
+                -moz-box-shadow: 1px 2px 23px 0px rgba(0,0,0,0.05);     
+                line-height: 2em;
+                font-size: 1em;
+           }
+           .post .quoteheader {
+              font-size: .9rem !important;
+            }
+            .windowbg2 .middletext a {
+            	font-size: 1.2em;
+            }
+            tr.titlebg2 td {
+                color: #fff;
+                font-style: normal;
+                background: #6096C5 repeat-x !important;
+                border-bottom: solid 1px #9BAEBF;
+                border-top: solid 1px #FFFFFF;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .titlebg2 a:visited {
+                color: #fff;
+            }
+            .titlebg2 a:link, .titlebg2 a:visited {
+                color: #fff;
+                font-style: normal;
+                text-decoration: underline;
+            }
+            td{
+                width: 120vw;
+            }
+            .modify-profile .dropdown-menu {
+                position: relative !important;
+                width: 90%;
+                background-color: #fff;
+                color: #6096C5;
+                border-radius: .2rem;
+                padding: 20px;
+            }
+            .profile-info .dropdown-menu {
+                position: relative !important;
+                width: 90%;
+                background-color: #fff;
+                color: #6096C5;
+                border-radius: .2rem;
+                padding: 20px;
+            }
+            #modify-profile button {
+                font-size: 1em;
+            }
+            #profile-info button {
+                font-size: 1em;
+            }
+            
+        `);
+        document.addEventListener('DOMContentLoaded', function () {
+            // Select the table and the rows with class 'windowbg2'
+            const table = document.querySelector('.bordercolor');
+            const rows = table.querySelectorAll('tr.windowbg2');
+        
+            // Create the Profile Info dropdown
+            const profileInfoDiv = document.createElement('div');
+            profileInfoDiv.classList.add('dropdown');
+            profileInfoDiv.id = 'profile-info';
+        
+            const profileButton = document.createElement('button');
+            profileButton.classList.add('btn', 'btn-default', 'dropdown-toggle');
+            profileButton.setAttribute('type', 'button');
+            profileButton.setAttribute('data-bs-toggle', 'dropdown');
+            profileButton.textContent = 'Profile Info';
+        
+            const profileMenu = document.createElement('ul');
+            profileMenu.classList.add('dropdown-menu');
+        
+            // Move anchor tags from the first row to the Profile Info dropdown
+            const firstRowAnchors = rows[0].querySelectorAll('a');
+            firstRowAnchors.forEach(anchor => {
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                link.classList.add('dropdown-item');
+                link.href = anchor.href;
+                link.textContent = anchor.textContent;
+                listItem.appendChild(link);
+                profileMenu.appendChild(listItem);
+                anchor.remove(); // Remove the original anchor
+            });
+        
+            profileInfoDiv.appendChild(profileButton);
+            profileInfoDiv.appendChild(profileMenu);
+        
+            // Create the Modify Profile dropdown
+            const modifyProfileDiv = document.createElement('div');
+            modifyProfileDiv.classList.add('dropdown');
+            modifyProfileDiv.id = 'modify-profile';
+        
+            const modifyButton = document.createElement('button');
+            modifyButton.classList.add('btn', 'btn-default', 'dropdown-toggle');
+            modifyButton.setAttribute('type', 'button');
+            modifyButton.setAttribute('data-bs-toggle', 'dropdown');
+            modifyButton.textContent = 'Modify Profile';
+        
+            const modifyMenu = document.createElement('ul');
+            modifyMenu.classList.add('dropdown-menu');
+        
+            // Move anchor tags from the second row to the Modify Profile dropdown
+            const secondRowAnchors = rows[1].querySelectorAll('a');
+            secondRowAnchors.forEach(anchor => {
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                link.classList.add('dropdown-item');
+                link.href = anchor.href;
+                link.textContent = anchor.textContent;
+                listItem.appendChild(link);
+                modifyMenu.appendChild(listItem);
+                anchor.remove(); // Remove the original anchor
+            });
+        
+            modifyProfileDiv.appendChild(modifyButton);
+            modifyProfileDiv.appendChild(modifyMenu);
+        
+            // Insert the dropdowns after the menu-container
+            const menuContainer = document.querySelector('.menu-container');
+            menuContainer.insertAdjacentElement('afterend', profileInfoDiv);
+            menuContainer.insertAdjacentElement('afterend', modifyProfileDiv);
+        
+            // Remove the content from the 'bordercolor' table
+            table.innerHTML = '';
+        });
+    }
+    
   	const verticalTable = document.querySelectorAll('.vertical-table');
   	if(verticalTable.length > 0){
       const tblIndex = verticalTable.length - 1;
