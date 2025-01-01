@@ -17,6 +17,7 @@
     const uidMatch = avatarSrc.match(/(\d+)/); 
     const helloElement = document.getElementById('hellomember');
     var username;
+    var logoutAnchor;
 
     if (uidMatch) {
         var uid = uidMatch[1]; // The first match group will contain the number
@@ -57,6 +58,15 @@
         table.style.display = "block";
     });
 
+    const mainTabElements = document.querySelectorAll('td.maintab_back[valign="top"]');
+    mainTabElements.forEach(td => {
+        const mainTabAnchorElements = td.querySelectorAll('a');
+        mainTabAnchorElements.forEach(anchor => {
+            if (anchor.href.includes('action=logout')) {
+                logoutAnchor = anchor.href;
+            }
+        });
+    });
 
     // Stylesheets
     const globalPageStylesheet = (css) => {
@@ -321,22 +331,9 @@
         .nav {
         		display: inline-block;
         }
-
-
     `);
-      
-  	
 
-    var logout;
-    const mainTabElements = document.querySelectorAll('td.maintab_back[valign="top"]');
-    mainTabElements.forEach(td => {
-        const mainTabAnchorElements = td.querySelectorAll('a');
-        mainTabAnchorElements.forEach(anchor => {
-            if (anchor.href.includes('action=logout')) {
-                logout = anchor.href;
-            }
-        });
-    });
+    
 
     // NAVBAR
     const navbar = document.createElement('nav');
@@ -373,10 +370,11 @@
                             </div>
                         </li>
                         <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=profile;u=`+uid+`;">Profile</a></li>
                         <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=profile;u=`+uid+`;sa=showPosts">Posts</a></li>
                         <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=profile;threads;u=`+uid+`;sa=showPosts">Topics</a></li>
                         <li><a class="dropdown-item" href="https://bitcointalk.org/index.php?action=drafts">Drafts</a></li>
-                        <li><a class="dropdown-item text-danger" href="${logout}">Logout</a></li>
+                        <li><a class="dropdown-item text-danger" href="${logoutAnchor}">Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -465,7 +463,7 @@
                 <li><a href="https://bitcointalk.org/index.php?action=profile"><i class="bi bi-person"></i> Profile</a></li>
                 <li><a href="https://bitcointalk.org/index.php?action=mlist"><i class="bi bi-people"></i> Members</a></li>
                 <li><a href="https://bitcointalk.org/more.php"><i class="bi bi-three-dots"></i> More</a></li>
-                <li><a href="${logout}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                <li><a href="${logoutAnchor}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
             </ul>
             <button class="close-btn"><i class="bi bi-x-square"></i></button>
         `;
